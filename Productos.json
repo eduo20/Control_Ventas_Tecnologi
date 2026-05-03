@@ -1,0 +1,122 @@
+[
+  {
+    "Codigo": "LAP-001",
+    "Nombre": "MacBook Air M2",
+    "Marca": "Apple",
+    "PrecioCompra": "950.00",
+    "PrecioVenta": "1199.00",
+    "Existencia": "5"
+  },
+  {
+    "Codigo": "LAP-002",
+    "Nombre": "Laptop Victus 15",
+    "Marca": "HP",
+    "PrecioCompra": "600.00",
+    "PrecioVenta": "749.99",
+    "Existencia": "8"
+  },
+  {
+    "Codigo": "LAP-003",
+    "Nombre": "ThinkPad X1 Carbon",
+    "Marca": "Lenovo",
+    "PrecioCompra": "1100.00",
+    "PrecioVenta": "1350.00",
+    "Existencia": "3"
+  },
+  {
+    "Codigo": "CEL-001",
+    "Nombre": "Galaxy S24 Ultra",
+    "Marca": "Samsung",
+    "PrecioCompra": "850.00",
+    "PrecioVenta": "1050.00",
+    "Existencia": "12"
+  },
+  {
+    "Codigo": "CEL-002",
+    "Nombre": "iPhone 15 Pro",
+    "Marca": "Apple",
+    "PrecioCompra": "900.00",
+    "PrecioVenta": "1099.00",
+    "Existencia": "10"
+  },
+  {
+    "Codigo": "CEL-003",
+    "Nombre": "Redmi Note 13 Pro",
+    "Marca": "Xiaomi",
+    "PrecioCompra": "220.00",
+    "PrecioVenta": "315.00",
+    "Existencia": "20"
+  },
+  {
+    "Codigo": "AUD-001",
+    "Nombre": "WH-1000XM5",
+    "Marca": "Sony",
+    "PrecioCompra": "250.00",
+    "PrecioVenta": "349.00",
+    "Existencia": "7"
+  },
+  {
+    "Codigo": "AUD-002",
+    "Nombre": "AirPods Pro 2",
+    "Marca": "Apple",
+    "PrecioCompra": "180.00",
+    "PrecioVenta": "249.00",
+    "Existencia": "15"
+  },
+  {
+    "Codigo": "AUD-003",
+    "Nombre": "QuietComfort Ultra",
+    "Marca": "Bose",
+    "PrecioCompra": "280.00",
+    "PrecioVenta": "379.00",
+    "Existencia": "4"
+  },
+  {
+    "Codigo": "ACC-001",
+    "Nombre": "Hub USB-C 7 en 1",
+    "Marca": "Ugreen",
+    "PrecioCompra": "15.00",
+    "PrecioVenta": "35.00",
+    "Existencia": "25"
+  },
+  {
+    "Codigo": "ACC-002",
+    "Nombre": "Cargador Carga Rápida 65W",
+    "Marca": "Anker",
+    "PrecioCompra": "20.00",
+    "PrecioVenta": "45.00",
+    "Existencia": "30"
+  },
+  {
+    "Codigo": "ACC-003",
+    "Nombre": "Mouse Pad Extendido",
+    "Marca": "Corsair",
+    "PrecioCompra": "12.00",
+    "PrecioVenta": "25.00",
+    "Existencia": "40"
+  },
+  {
+    "Codigo": "COM-001",
+    "Nombre": "Tarjeta de Video RTX 4070",
+    "Marca": "NVIDIA",
+    "PrecioCompra": "450.00",
+    "PrecioVenta": "599.00",
+    "Existencia": "6"
+  },
+  {
+    "Codigo": "COM-002",
+    "Nombre": "Procesador Ryzen 7 7800X3D",
+    "Marca": "AMD",
+    "PrecioCompra": "300.00",
+    "PrecioVenta": "399.00",
+    "Existencia": "10"
+  },
+  {
+    "Codigo": "COM-003",
+    "Nombre": "Memoria RAM 32GB DDR5",
+    "Marca": "Kingston",
+    "PrecioCompra": "85.00",
+    "PrecioVenta": "130.00",
+    "Existencia": "18"
+  }
+]
