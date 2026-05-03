@@ -1,29 +1,29 @@
 [
-  {
+{
     "Codigo": "LAP-001",
     "Nombre": "MacBook Air M2",
     "Marca": "Apple",
     "PrecioCompra": "950.00",
     "PrecioVenta": "1199.00",
     "Existencia": "5"
-  },
-  {
+},
+{
     "Codigo": "LAP-002",
     "Nombre": "Laptop Victus 15",
     "Marca": "HP",
     "PrecioCompra": "600.00",
     "PrecioVenta": "749.99",
     "Existencia": "8"
-  },
-  {
+},
+{
     "Codigo": "LAP-003",
     "Nombre": "ThinkPad X1 Carbon",
     "Marca": "Lenovo",
     "PrecioCompra": "1100.00",
     "PrecioVenta": "1350.00",
     "Existencia": "3"
-  },
-  {
+},
+{
     "Codigo": "CEL-001",
     "Nombre": "Galaxy S24 Ultra",
     "Marca": "Samsung",
