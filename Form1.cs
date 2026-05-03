@@ -13,10 +13,31 @@ namespace Control_Ventas_Tecnologi
 {
     public partial class Form1 : Form
     {
+
+        // No borren los private chavos, esos solo funcionan en el programa principal no los deje publicos para que no afecten en el resto del codigo negativamente
+        // pd: todo esto lo investigue pq esta parte me generaba dudas ya que como estoy usando otra clase para la lectura y guardado de datos.
+
         private Empleados _empleadoLogueado; // Variable para almacenar el empleado logueado
+        private List<Productos> _listaProductos; // Variable para almacenar la lista de productos
+        private ProductosBaseDatos productosBase = new ProductosBaseDatos(); // Instancia de la clase para acceder a los productos
         public Form1()
         {
             InitializeComponent();
+
+
+        }
+
+
+        private void CargaGridProductos1()
+        {
+            _listaProductos = productosBase.LeerProductos();
+            // Decimos que la fuente de datos es "nada" para que se limpie
+            dataGridViewProductos.DataSource = null;
+
+            // Le volvemos a pasar la lista (que ya tiene los cambios de agregar/editar)
+            dataGridViewProductos.DataSource = _listaProductos;
+            dataGridViewProductos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+
         }
 
         private void buttonGerente_Click(object sender, EventArgs e)
@@ -60,6 +81,7 @@ namespace Control_Ventas_Tecnologi
         {
             panelContra1.Visible = false;
             panelUser1.Visible = true;
+            textBoxContra.Clear(); // ← agregar esto
         }
 
         private void buttonSiguiente2_Click(object sender, EventArgs e)
@@ -95,5 +117,37 @@ namespace Control_Ventas_Tecnologi
         {
             this.Close(); // Cierra la aplicación
         }
+
+        private void buttonlistadoProductos_Click(object sender, EventArgs e)
+        {
+
+            tabControl1.SelectedTab = ListaProducto;
+
+        }
+
+        private void buttonMostrar3_Click(object sender, EventArgs e)
+        {
+            _listaProductos = productosBase.LeerProductos();
+            CargaGridProductos1();
+            labelEstado.Text = "Datos actualizados";
+            
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void buttonSalir3_Click(object sender, EventArgs e)
+        {
+            tabControl1.SelectedTab = Gerente;
+        }
+
+        private void buttonRegresar3_Click(object sender, EventArgs e)
+        {
+            tabControl1.SelectedTab = Inicio;
+        }
     }
-}
+    }
+
+

@@ -8,12 +8,12 @@ namespace Control_Ventas_Tecnologi
 {
     internal class Productos
     {
-        public string codigoProducto { get; set; } = string.Empty;
-        public string nameProducto {  get; set; } = string.Empty;
-        public string marcaProducto {  get; set; } = string.Empty;
-        public string precioCompra {  get; set; } = string.Empty;
-        public string precioVenta {  get; set; } = string.Empty;
-        public string noExistencia { get; set; } = string.Empty;
+        public string Codigo { get; set; }
+        public string Nombre {  get; set; } 
+        public string Marca {  get; set; } 
+        public string PrecioCompra {  get; set; } 
+        public string PrecioVenta {  get; set; } 
+        public string Existencia { get; set; } 
 
     }
 }

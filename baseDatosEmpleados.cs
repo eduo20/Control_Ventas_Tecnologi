@@ -10,16 +10,23 @@ namespace Control_Ventas_Tecnologi
 {
     internal class baseDatosEmpleados
     {
-        private string _datosEmpleados = "C:\\Users\\eduar\\Desktop\\UMES 2025\\3 semestre ing\\Progra III\\Proyecto final\\Control_Ventas_Tecnologi\\Emplados.json";
+        private string _datosEmpleados = "Emplados.json";
 
         public List<Empleados> LeerEmpleados()
         {
             if (!File.Exists(_datosEmpleados))
+
+                return new List<Empleados>();
+            try
+            {
+                var jsonEmpleados = File.ReadAllText(_datosEmpleados);
+                return JsonSerializer.Deserialize<List<Empleados>>(jsonEmpleados) ?? new List<Empleados>();
+            } catch 
             {
                 return new List<Empleados>();
             }
-            string json = File.ReadAllText(_datosEmpleados);
-            return JsonSerializer.Deserialize<List<Empleados>>(json) ?? new List<Empleados>();
+
+
         }
-    }
+    }            
 }
