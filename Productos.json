@@ -1,29 +1,29 @@
 [
-{
+  {
     "Codigo": "LAP-001",
     "Nombre": "MacBook Air M2",
     "Marca": "Apple",
     "PrecioCompra": "950.00",
     "PrecioVenta": "1199.00",
     "Existencia": "5"
-},
-{
+  },
+  {
     "Codigo": "LAP-002",
     "Nombre": "Laptop Victus 15",
     "Marca": "HP",
     "PrecioCompra": "600.00",
     "PrecioVenta": "749.99",
     "Existencia": "8"
-},
-{
+  },
+  {
     "Codigo": "LAP-003",
     "Nombre": "ThinkPad X1 Carbon",
     "Marca": "Lenovo",
     "PrecioCompra": "1100.00",
     "PrecioVenta": "1350.00",
     "Existencia": "3"
-},
-{
+  },
+  {
     "Codigo": "CEL-001",
     "Nombre": "Galaxy S24 Ultra",
     "Marca": "Samsung",
@@ -81,7 +81,7 @@
   },
   {
     "Codigo": "ACC-002",
-    "Nombre": "Cargador Carga Rápida 65W",
+    "Nombre": "Cargador Carga R\u00E1pida 65W",
     "Marca": "Anker",
     "PrecioCompra": "20.00",
     "PrecioVenta": "45.00",
@@ -118,5 +118,45 @@
     "PrecioCompra": "85.00",
     "PrecioVenta": "130.00",
     "Existencia": "18"
+  },
+  {
+    "Codigo": "CD34",
+    "Nombre": "Iphone X",
+    "Marca": "Apple",
+    "PrecioCompra": "2000",
+    "PrecioVenta": "2500",
+    "Existencia": "3"
+  },
+  {
+    "Codigo": "JH2354",
+    "Nombre": "Redmi note 12",
+    "Marca": "Redmi",
+    "PrecioCompra": "1900",
+    "PrecioVenta": "2300",
+    "Existencia": "5"
+  },
+  {
+    "Codigo": "HlQc32",
+    "Nombre": "Redmi buds 4",
+    "Marca": "Redmi",
+    "PrecioCompra": "1200",
+    "PrecioVenta": "1500",
+    "Existencia": "6"
+  },
+  {
+    "Codigo": "592Hl",
+    "Nombre": "Samsung buds pro",
+    "Marca": "Samsung",
+    "PrecioCompra": "2000",
+    "PrecioVenta": "2600",
+    "Existencia": "8"
+  },
+  {
+    "Codigo": "HCEQ",
+    "Nombre": "Huawei P30",
+    "Marca": "Huawei",
+    "PrecioCompra": "2000",
+    "PrecioVenta": "2600",
+    "Existencia": "8"
   }
 ]

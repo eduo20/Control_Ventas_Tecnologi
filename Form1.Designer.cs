@@ -57,7 +57,7 @@
             this.buttondatosVentas = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.buttonAgrega = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.buttonModificar = new System.Windows.Forms.Button();
             this.buttonlistadoProductos = new System.Windows.Forms.Button();
             this.buttonSalir1 = new System.Windows.Forms.Button();
             this.buttonRegresar3 = new System.Windows.Forms.Button();
@@ -68,6 +68,28 @@
             this.buttonMostrar3 = new System.Windows.Forms.Button();
             this.buttonSalir3 = new System.Windows.Forms.Button();
             this.dataGridViewProductos = new System.Windows.Forms.DataGridView();
+            this.nuevosProdutos = new System.Windows.Forms.TabPage();
+            this.buttonatras = new System.Windows.Forms.Button();
+            this.buttonNuevos = new System.Windows.Forms.Button();
+            this.textBoxCantidad = new System.Windows.Forms.TextBox();
+            this.textBoxPrecioVenta = new System.Windows.Forms.TextBox();
+            this.textBoxPrecioCompra = new System.Windows.Forms.TextBox();
+            this.textBoxMarca = new System.Windows.Forms.TextBox();
+            this.textBoxNombre = new System.Windows.Forms.TextBox();
+            this.textBoxCodigo = new System.Windows.Forms.TextBox();
+            this.label17 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.dateTimePicker4 = new System.Windows.Forms.DateTimePicker();
+            this.Modificar = new System.Windows.Forms.TabPage();
+            this.buttonEditar = new System.Windows.Forms.Button();
+            this.dataGridViewEdicion = new System.Windows.Forms.DataGridView();
+            this.buttonCargar = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.Inicio.SuspendLayout();
             this.panelUser1.SuspendLayout();
@@ -76,6 +98,9 @@
             this.Gerente.SuspendLayout();
             this.ListaProducto.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewProductos)).BeginInit();
+            this.nuevosProdutos.SuspendLayout();
+            this.Modificar.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewEdicion)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -84,6 +109,8 @@
             this.tabControl1.Controls.Add(this.Cajero);
             this.tabControl1.Controls.Add(this.Gerente);
             this.tabControl1.Controls.Add(this.ListaProducto);
+            this.tabControl1.Controls.Add(this.nuevosProdutos);
+            this.tabControl1.Controls.Add(this.Modificar);
             this.tabControl1.Font = new System.Drawing.Font("MS Reference Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabControl1.Location = new System.Drawing.Point(13, 14);
             this.tabControl1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -355,7 +382,7 @@
             this.Gerente.Controls.Add(this.buttondatosVentas);
             this.Gerente.Controls.Add(this.button2);
             this.Gerente.Controls.Add(this.buttonAgrega);
-            this.Gerente.Controls.Add(this.button1);
+            this.Gerente.Controls.Add(this.buttonModificar);
             this.Gerente.Controls.Add(this.buttonlistadoProductos);
             this.Gerente.Controls.Add(this.buttonSalir1);
             this.Gerente.Controls.Add(this.buttonRegresar3);
@@ -409,16 +436,18 @@
             this.buttonAgrega.TabIndex = 11;
             this.buttonAgrega.Text = "Agregar nuevos productos";
             this.buttonAgrega.UseVisualStyleBackColor = true;
+            this.buttonAgrega.Click += new System.EventHandler(this.buttonAgrega_Click);
             // 
-            // button1
+            // buttonModificar
             // 
-            this.button1.Location = new System.Drawing.Point(381, 300);
-            this.button1.Margin = new System.Windows.Forms.Padding(4);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(259, 69);
-            this.button1.TabIndex = 10;
-            this.button1.Text = "Editar los datos de los productos";
-            this.button1.UseVisualStyleBackColor = true;
+            this.buttonModificar.Location = new System.Drawing.Point(381, 300);
+            this.buttonModificar.Margin = new System.Windows.Forms.Padding(4);
+            this.buttonModificar.Name = "buttonModificar";
+            this.buttonModificar.Size = new System.Drawing.Size(259, 69);
+            this.buttonModificar.TabIndex = 10;
+            this.buttonModificar.Text = "Editar los datos de los productos";
+            this.buttonModificar.UseVisualStyleBackColor = true;
+            this.buttonModificar.Click += new System.EventHandler(this.button1_Click);
             // 
             // buttonlistadoProductos
             // 
@@ -440,6 +469,7 @@
             this.buttonSalir1.TabIndex = 8;
             this.buttonSalir1.Text = "Salir";
             this.buttonSalir1.UseVisualStyleBackColor = true;
+            this.buttonSalir1.Click += new System.EventHandler(this.buttonSalir1_Click);
             // 
             // buttonRegresar3
             // 
@@ -494,11 +524,11 @@
             // 
             // buttonMostrar3
             // 
-            this.buttonMostrar3.Location = new System.Drawing.Point(465, 565);
+            this.buttonMostrar3.Location = new System.Drawing.Point(918, 528);
             this.buttonMostrar3.Name = "buttonMostrar3";
             this.buttonMostrar3.Size = new System.Drawing.Size(127, 32);
             this.buttonMostrar3.TabIndex = 2;
-            this.buttonMostrar3.Text = "Mostrar";
+            this.buttonMostrar3.Text = "Recargar";
             this.buttonMostrar3.UseVisualStyleBackColor = true;
             this.buttonMostrar3.Click += new System.EventHandler(this.buttonMostrar3_Click);
             // 
@@ -519,8 +549,222 @@
             this.dataGridViewProductos.Name = "dataGridViewProductos";
             this.dataGridViewProductos.RowHeadersWidth = 51;
             this.dataGridViewProductos.RowTemplate.Height = 24;
+            this.dataGridViewProductos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewProductos.Size = new System.Drawing.Size(1026, 453);
             this.dataGridViewProductos.TabIndex = 0;
+            // 
+            // nuevosProdutos
+            // 
+            this.nuevosProdutos.Controls.Add(this.buttonatras);
+            this.nuevosProdutos.Controls.Add(this.buttonNuevos);
+            this.nuevosProdutos.Controls.Add(this.textBoxCantidad);
+            this.nuevosProdutos.Controls.Add(this.textBoxPrecioVenta);
+            this.nuevosProdutos.Controls.Add(this.textBoxPrecioCompra);
+            this.nuevosProdutos.Controls.Add(this.textBoxMarca);
+            this.nuevosProdutos.Controls.Add(this.textBoxNombre);
+            this.nuevosProdutos.Controls.Add(this.textBoxCodigo);
+            this.nuevosProdutos.Controls.Add(this.label17);
+            this.nuevosProdutos.Controls.Add(this.label16);
+            this.nuevosProdutos.Controls.Add(this.label15);
+            this.nuevosProdutos.Controls.Add(this.label14);
+            this.nuevosProdutos.Controls.Add(this.label13);
+            this.nuevosProdutos.Controls.Add(this.label12);
+            this.nuevosProdutos.Controls.Add(this.label11);
+            this.nuevosProdutos.Controls.Add(this.label10);
+            this.nuevosProdutos.Controls.Add(this.dateTimePicker4);
+            this.nuevosProdutos.Location = new System.Drawing.Point(4, 33);
+            this.nuevosProdutos.Name = "nuevosProdutos";
+            this.nuevosProdutos.Size = new System.Drawing.Size(1063, 677);
+            this.nuevosProdutos.TabIndex = 4;
+            this.nuevosProdutos.Text = "Agregar nuevos productos";
+            this.nuevosProdutos.UseVisualStyleBackColor = true;
+            // 
+            // buttonatras
+            // 
+            this.buttonatras.Location = new System.Drawing.Point(38, 544);
+            this.buttonatras.Name = "buttonatras";
+            this.buttonatras.Size = new System.Drawing.Size(104, 59);
+            this.buttonatras.TabIndex = 23;
+            this.buttonatras.Text = "Regresar";
+            this.buttonatras.UseVisualStyleBackColor = true;
+            this.buttonatras.Click += new System.EventHandler(this.buttonatras_Click);
+            // 
+            // buttonNuevos
+            // 
+            this.buttonNuevos.Location = new System.Drawing.Point(408, 544);
+            this.buttonNuevos.Name = "buttonNuevos";
+            this.buttonNuevos.Size = new System.Drawing.Size(172, 59);
+            this.buttonNuevos.TabIndex = 22;
+            this.buttonNuevos.Text = "Agregar nuevos productos";
+            this.buttonNuevos.UseVisualStyleBackColor = true;
+            this.buttonNuevos.Click += new System.EventHandler(this.buttonNuevos_Click);
+            // 
+            // textBoxCantidad
+            // 
+            this.textBoxCantidad.Location = new System.Drawing.Point(395, 458);
+            this.textBoxCantidad.Name = "textBoxCantidad";
+            this.textBoxCantidad.Size = new System.Drawing.Size(583, 29);
+            this.textBoxCantidad.TabIndex = 21;
+            // 
+            // textBoxPrecioVenta
+            // 
+            this.textBoxPrecioVenta.Location = new System.Drawing.Point(395, 385);
+            this.textBoxPrecioVenta.Name = "textBoxPrecioVenta";
+            this.textBoxPrecioVenta.Size = new System.Drawing.Size(584, 29);
+            this.textBoxPrecioVenta.TabIndex = 20;
+            // 
+            // textBoxPrecioCompra
+            // 
+            this.textBoxPrecioCompra.Location = new System.Drawing.Point(395, 327);
+            this.textBoxPrecioCompra.Name = "textBoxPrecioCompra";
+            this.textBoxPrecioCompra.Size = new System.Drawing.Size(583, 29);
+            this.textBoxPrecioCompra.TabIndex = 19;
+            // 
+            // textBoxMarca
+            // 
+            this.textBoxMarca.Location = new System.Drawing.Point(395, 263);
+            this.textBoxMarca.Name = "textBoxMarca";
+            this.textBoxMarca.Size = new System.Drawing.Size(583, 29);
+            this.textBoxMarca.TabIndex = 18;
+            // 
+            // textBoxNombre
+            // 
+            this.textBoxNombre.Location = new System.Drawing.Point(395, 203);
+            this.textBoxNombre.Name = "textBoxNombre";
+            this.textBoxNombre.Size = new System.Drawing.Size(584, 29);
+            this.textBoxNombre.TabIndex = 17;
+            // 
+            // textBoxCodigo
+            // 
+            this.textBoxCodigo.Location = new System.Drawing.Point(395, 143);
+            this.textBoxCodigo.Name = "textBoxCodigo";
+            this.textBoxCodigo.Size = new System.Drawing.Size(583, 29);
+            this.textBoxCodigo.TabIndex = 16;
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Font = new System.Drawing.Font("Perpetua Titling MT", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label17.Location = new System.Drawing.Point(66, 89);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(837, 22);
+            this.label17.TabIndex = 15;
+            this.label17.Text = "Ingrese los nuevos productos adquiridos por la tienda para ser vendidos.";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(42, 463);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(182, 24);
+            this.label16.TabIndex = 14;
+            this.label16.Text = "Cantidad adquitida:";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(42, 390);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(212, 24);
+            this.label15.TabIndex = 13;
+            this.label15.Text = "Ingrese precio de venta:";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(42, 327);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(231, 24);
+            this.label14.TabIndex = 12;
+            this.label14.Text = "Ingrese precio de compra:";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(42, 263);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(137, 24);
+            this.label13.TabIndex = 11;
+            this.label13.Text = "Ingrese marca:";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(42, 208);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(153, 24);
+            this.label12.TabIndex = 10;
+            this.label12.Text = "Ingrese Nombre:";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(42, 148);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(139, 24);
+            this.label11.TabIndex = 9;
+            this.label11.Text = "Ingrese codigo:";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Ravie", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.Location = new System.Drawing.Point(424, 29);
+            this.label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(207, 34);
+            this.label10.TabIndex = 8;
+            this.label10.Text = "TecnoMente";
+            // 
+            // dateTimePicker4
+            // 
+            this.dateTimePicker4.Location = new System.Drawing.Point(38, 29);
+            this.dateTimePicker4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.dateTimePicker4.Name = "dateTimePicker4";
+            this.dateTimePicker4.Size = new System.Drawing.Size(341, 29);
+            this.dateTimePicker4.TabIndex = 7;
+            // 
+            // Modificar
+            // 
+            this.Modificar.Controls.Add(this.buttonCargar);
+            this.Modificar.Controls.Add(this.buttonEditar);
+            this.Modificar.Controls.Add(this.dataGridViewEdicion);
+            this.Modificar.Location = new System.Drawing.Point(4, 33);
+            this.Modificar.Name = "Modificar";
+            this.Modificar.Size = new System.Drawing.Size(1063, 677);
+            this.Modificar.TabIndex = 5;
+            this.Modificar.Text = "Modificar datos";
+            this.Modificar.UseVisualStyleBackColor = true;
+            // 
+            // buttonEditar
+            // 
+            this.buttonEditar.Location = new System.Drawing.Point(405, 550);
+            this.buttonEditar.Name = "buttonEditar";
+            this.buttonEditar.Size = new System.Drawing.Size(198, 55);
+            this.buttonEditar.TabIndex = 2;
+            this.buttonEditar.Text = "Aceptar cambios";
+            this.buttonEditar.UseVisualStyleBackColor = true;
+            this.buttonEditar.Click += new System.EventHandler(this.buttonEditar_Click);
+            // 
+            // dataGridViewEdicion
+            // 
+            this.dataGridViewEdicion.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewEdicion.Location = new System.Drawing.Point(22, 19);
+            this.dataGridViewEdicion.Name = "dataGridViewEdicion";
+            this.dataGridViewEdicion.RowHeadersWidth = 51;
+            this.dataGridViewEdicion.RowTemplate.Height = 24;
+            this.dataGridViewEdicion.Size = new System.Drawing.Size(1026, 453);
+            this.dataGridViewEdicion.TabIndex = 1;
+            // 
+            // buttonCargar
+            // 
+            this.buttonCargar.Location = new System.Drawing.Point(675, 550);
+            this.buttonCargar.Name = "buttonCargar";
+            this.buttonCargar.Size = new System.Drawing.Size(177, 55);
+            this.buttonCargar.TabIndex = 3;
+            this.buttonCargar.Text = "Recargar";
+            this.buttonCargar.UseVisualStyleBackColor = true;
+            this.buttonCargar.Click += new System.EventHandler(this.buttonCargar_Click);
             // 
             // Form1
             // 
@@ -547,6 +791,10 @@
             this.ListaProducto.ResumeLayout(false);
             this.ListaProducto.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewProductos)).EndInit();
+            this.nuevosProdutos.ResumeLayout(false);
+            this.nuevosProdutos.PerformLayout();
+            this.Modificar.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewEdicion)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -580,7 +828,7 @@
         private System.Windows.Forms.Button buttonSalir1;
         private System.Windows.Forms.Button buttonRegresar3;
         private System.Windows.Forms.Button buttonlistadoProductos;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button buttonModificar;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button buttonAgrega;
         private System.Windows.Forms.Button buttonGanancias;
@@ -593,6 +841,28 @@
         private System.Windows.Forms.Button buttonSalir3;
         private System.Windows.Forms.DataGridView dataGridViewProductos;
         private System.Windows.Forms.Label labelEstado;
+        private System.Windows.Forms.TabPage nuevosProdutos;
+        private System.Windows.Forms.DateTimePicker dateTimePicker4;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.TextBox textBoxCantidad;
+        private System.Windows.Forms.TextBox textBoxPrecioVenta;
+        private System.Windows.Forms.TextBox textBoxPrecioCompra;
+        private System.Windows.Forms.TextBox textBoxMarca;
+        private System.Windows.Forms.TextBox textBoxNombre;
+        private System.Windows.Forms.TextBox textBoxCodigo;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Button buttonNuevos;
+        private System.Windows.Forms.Button buttonatras;
+        private System.Windows.Forms.TabPage Modificar;
+        private System.Windows.Forms.Button buttonEditar;
+        private System.Windows.Forms.DataGridView dataGridViewEdicion;
+        private System.Windows.Forms.Button buttonCargar;
     }
 }
 

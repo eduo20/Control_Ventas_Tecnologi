@@ -36,13 +36,32 @@ namespace Control_Ventas_Tecnologi
 
             // Le volvemos a pasar la lista (que ya tiene los cambios de agregar/editar)
             dataGridViewProductos.DataSource = _listaProductos;
+
+            dataGridViewEdicion.DataSource = null;
+            dataGridViewEdicion.DataSource = _listaProductos;
             dataGridViewProductos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
         }
-
+        private void LimpiarEntradas()
+        {
+            // Esto busca en todo el formulario
+            foreach (Control c in this.Controls)
+            {
+                if (c is TextBox)
+                {
+                    ((TextBox)c).Clear();
+                }
+                // Si tus TextBox están dentro de un TabControl o Panel, 
+                // debes buscar dentro de ese contenedor:
+                foreach (Control subControl in tabControl1.SelectedTab.Controls)
+                {
+                    if (subControl is TextBox) { ((TextBox)subControl).Clear(); }
+                }
+            }
+        }
         private void buttonGerente_Click(object sender, EventArgs e)
         {
-       
+
             panelUser1.Visible = true;
         }
 
@@ -60,9 +79,8 @@ namespace Control_Ventas_Tecnologi
 
             if (_empleadoLogueado != null)
 
-
             {
-  
+
                 panelContra1.Visible = true;
                 MessageBox.Show("Usuario correcto, ingrese su contraseña");
                 panelUser1.Visible = false; // Oculta el panel de usuario después de un inicio de sesión exitoso
@@ -90,11 +108,12 @@ namespace Control_Ventas_Tecnologi
 
             if (_empleadoLogueado != null && textBoxContra.Text == _empleadoLogueado.password) // Verifica que el empleado logueado no sea nulo y que la contraseña ingresada coincida con la del empleado
             {
-                if(_empleadoLogueado.rol == "Gerente")
-                tabControl1.SelectedTab = Gerente; // Cambia a la pestaña "Gerente" si la contraseña es correcta
+                if (_empleadoLogueado.rol == "Gerente")
+                    tabControl1.SelectedTab = Gerente; // Cambia a la pestaña "Gerente" si la contraseña es correcta
 
 
-                else if (_empleadoLogueado.rol == "Cajero") {
+                else if (_empleadoLogueado.rol == "Cajero")
+                {
                     tabControl1.SelectedTab = Cajero;
                 }
                 panelContra1.Visible = false; // Oculta el panel de contraseña después de un inicio de sesión exitoso
@@ -122,20 +141,20 @@ namespace Control_Ventas_Tecnologi
         {
 
             tabControl1.SelectedTab = ListaProducto;
+            ActualizarDatosProducto();
 
         }
 
         private void buttonMostrar3_Click(object sender, EventArgs e)
         {
-            _listaProductos = productosBase.LeerProductos();
-            CargaGridProductos1();
+            ActualizarDatosProducto();
             labelEstado.Text = "Datos actualizados";
-            
+
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            
+
         }
 
         private void buttonSalir3_Click(object sender, EventArgs e)
@@ -147,7 +166,73 @@ namespace Control_Ventas_Tecnologi
         {
             tabControl1.SelectedTab = Inicio;
         }
-    }
-    }
 
+        private void buttonSalir1_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void buttonatras_Click(object sender, EventArgs e)
+        {
+            tabControl1.SelectedTab = Gerente;
+        }
+
+        private void buttonNuevos_Click(object sender, EventArgs e)
+        {
+            Productos produc = new Productos
+            {
+                Codigo = textBoxCodigo.Text,
+                Nombre = textBoxNombre.Text,
+                Marca = textBoxMarca.Text,
+                PrecioCompra = textBoxPrecioCompra.Text,
+                PrecioVenta = textBoxPrecioVenta.Text,
+                Existencia = textBoxCantidad.Text
+
+            };
+            LimpiarEntradas(); // Limpia los TextBox después de crear el producto
+            productosBase.GuardarProductos(produc);
+
+            _listaProductos = productosBase.LeerProductos();
+
+            MessageBox.Show("Producto agregado correctamente");
+
+            
+
+        }
+
+        private void button1_Click(object sender, EventArgs e) //Ya muestra automaticamente los datos en los grid
+        {
+            tabControl1.SelectedTab = Modificar;
+            ActualizarDatosProducto();
+
+
+
+        }
+
+        private void buttonEditar_Click(object sender, EventArgs e)
+        {
+
+
+
+        }
+
+        private void buttonCargar_Click(object sender, EventArgs e) //Solo para tener un reset y mostrar el mensaje
+        {
+            ActualizarDatosProducto();
+            labelEstado.Text = "Datos actualizados";
+        }
+
+        public void ActualizarDatosProducto() //Metodo para actualizar los datos del DataGridView, lo llamo cada vez que hago un cambio en el json para que se refleje en el programa
+        {
+            _listaProductos = productosBase.LeerProductos();
+            CargaGridProductos1();
+        }
+
+        private void buttonAgrega_Click(object sender, EventArgs e)
+        {
+            tabControl1.SelectedTab = nuevosProdutos;
+            
+        }
+    }
+}
 
