@@ -339,7 +339,7 @@ namespace Control_Ventas_Tecnologi
 
         private void buttonEliminarColum_Click(object sender, EventArgs e)
         {
-            if (dataGridViewEdicion.CurrentRow == null)
+            if (dataGridViewEdicion.CurrentRow == null) //.CurrentRow se refiere a la fila actualmente seleccionada en el DataGridView. Si no hay ninguna fila seleccionada, CurrentRow será null.
 
             {
                 MessageBox.Show("Selecciona un producto primero");
