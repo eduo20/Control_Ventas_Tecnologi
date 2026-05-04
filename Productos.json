@@ -3,7 +3,7 @@
     "Codigo": "LAP-001",
     "Nombre": "MacBook Air M2",
     "Marca": "Apple",
-    "PrecioCompra": "950.00",
+    "PrecioCompra": "940.00",
     "PrecioVenta": "1199.00",
     "Existencia": "5"
   },
@@ -147,14 +147,6 @@
     "Codigo": "592Hl",
     "Nombre": "Samsung buds pro",
     "Marca": "Samsung",
-    "PrecioCompra": "2000",
-    "PrecioVenta": "2600",
-    "Existencia": "8"
-  },
-  {
-    "Codigo": "HCEQ",
-    "Nombre": "Huawei P30",
-    "Marca": "Huawei",
     "PrecioCompra": "2000",
     "PrecioVenta": "2600",
     "Existencia": "8"

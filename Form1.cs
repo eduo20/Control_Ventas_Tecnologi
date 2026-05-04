@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -20,6 +21,7 @@ namespace Control_Ventas_Tecnologi
         private Empleados _empleadoLogueado; // Variable para almacenar el empleado logueado
         private List<Productos> _listaProductos; // Variable para almacenar la lista de productos
         private ProductosBaseDatos productosBase = new ProductosBaseDatos(); // Instancia de la clase para acceder a los productos
+        private string _codigoAEliminar; //| Variable para almacenar el código del producto a eliminar
         public Form1()
         {
             InitializeComponent();
@@ -36,10 +38,14 @@ namespace Control_Ventas_Tecnologi
 
             // Le volvemos a pasar la lista (que ya tiene los cambios de agregar/editar)
             dataGridViewProductos.DataSource = _listaProductos;
+            dataGridViewProductos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridViewProductos.ClearSelection();
 
             dataGridViewEdicion.DataSource = null;
             dataGridViewEdicion.DataSource = _listaProductos;
-            dataGridViewProductos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridViewEdicion.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridViewEdicion.ReadOnly = false; // Permite la edición directa en el DataGridView
+            dataGridViewEdicion.ClearSelection();
 
         }
         private void LimpiarEntradas()
@@ -59,6 +65,19 @@ namespace Control_Ventas_Tecnologi
                 }
             }
         }
+        // Este método verifica si hay algún TextBox vacío en el formulario y muestra un mensaje si es así.
+        private bool DetectarTextoVacio()
+        {
+            bool camponoValido = this.Controls.OfType<TextBox>().Any(t => string.IsNullOrWhiteSpace(t.Text)); //controls es el formulario, oftype busca los textbox, any verifica si alguno cumple la condicion de estar vacio o con espacios en blanco
+
+            if (camponoValido)
+            {
+                MessageBox.Show("Aún faltan campos por completar.");
+                return true; 
+            }
+
+            return false;
+        }
         private void buttonGerente_Click(object sender, EventArgs e)
         {
 
@@ -72,8 +91,16 @@ namespace Control_Ventas_Tecnologi
 
         private void buttonAvanzar1_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(textUser.Text)) // Verifica si el campo de usuario está vacío o contiene solo espacios en blanco
+            {
+                MessageBox.Show("Por favor, ingrese su nombre de usuario.");
+                return; 
+            }
+
             baseDatosEmpleados baseDatos = new baseDatosEmpleados(); //llama a la clase
             List<Empleados> bsEmpleados = baseDatos.LeerEmpleados(); //lee la lista de empleados del json
+
+            
 
             _empleadoLogueado = bsEmpleados.FirstOrDefault(emp => emp.user == textUser.Text); //Compara la lista Json con el dato ingresado en el Texbox, si encuentra una coincidencia, asigna el empleado a la variable _empleadoLogueado
 
@@ -84,12 +111,17 @@ namespace Control_Ventas_Tecnologi
                 panelContra1.Visible = true;
                 MessageBox.Show("Usuario correcto, ingrese su contraseña");
                 panelUser1.Visible = false; // Oculta el panel de usuario después de un inicio de sesión exitoso
+
             }
             else
             {
+                
+
                 MessageBox.Show("Usuario incorrecto, intente de nuevo");
+
                 _empleadoLogueado = null; // Limpia el empleado logueado en caso de error
-                panelContra1.Visible = false;
+                
+                
                 textUser.Clear(); // Limpia el campo de usuario en caso de error
 
             }
@@ -104,7 +136,11 @@ namespace Control_Ventas_Tecnologi
 
         private void buttonSiguiente2_Click(object sender, EventArgs e)
         {
-
+            if (string.IsNullOrWhiteSpace(textBoxContra.Text))
+            {
+                MessageBox.Show("Por favor, ingrese su contraseña.");
+                return; 
+            }
 
             if (_empleadoLogueado != null && textBoxContra.Text == _empleadoLogueado.password) // Verifica que el empleado logueado no sea nulo y que la contraseña ingresada coincida con la del empleado
             {
@@ -179,6 +215,10 @@ namespace Control_Ventas_Tecnologi
 
         private void buttonNuevos_Click(object sender, EventArgs e)
         {
+            if(DetectarTextoVacio()) 
+            {
+                return; // Detiene la ejecución del método si hay un TextBox vacío
+            }
             Productos produc = new Productos
             {
                 Codigo = textBoxCodigo.Text,
@@ -188,6 +228,7 @@ namespace Control_Ventas_Tecnologi
                 PrecioVenta = textBoxPrecioVenta.Text,
                 Existencia = textBoxCantidad.Text
 
+                
             };
             LimpiarEntradas(); // Limpia los TextBox después de crear el producto
             productosBase.GuardarProductos(produc);
@@ -195,10 +236,12 @@ namespace Control_Ventas_Tecnologi
             _listaProductos = productosBase.LeerProductos();
 
             MessageBox.Show("Producto agregado correctamente");
-
             
 
         }
+
+
+
 
         private void button1_Click(object sender, EventArgs e) //Ya muestra automaticamente los datos en los grid
         {
@@ -211,7 +254,7 @@ namespace Control_Ventas_Tecnologi
 
         private void buttonEditar_Click(object sender, EventArgs e)
         {
-
+            panelConfirmacion.Visible = true;
 
 
         }
@@ -231,7 +274,98 @@ namespace Control_Ventas_Tecnologi
         private void buttonAgrega_Click(object sender, EventArgs e)
         {
             tabControl1.SelectedTab = nuevosProdutos;
+
+        }
+
+        
+
+        private void dataGridViewProductos_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+           
+        }
+
+        private void buttonno_Click(object sender, EventArgs e)
+        {
+            panelConfirmacion.Visible = false;
+            tabControl1.SelectedTab = Modificar;
+
+        }
+
+        private void buttonsi_Click(object sender, EventArgs e)
+        {
+
+            // Validar celdas vacías en el grid de EDICIÓN
+            foreach (DataGridViewRow fila in dataGridViewEdicion.Rows) // ← cambiar aquí
+            {
+                if (fila.IsNewRow) continue;
+
+                foreach (DataGridViewCell celda in fila.Cells)
+                {
+                    if (celda.Value == null || string.IsNullOrWhiteSpace(celda.Value.ToString()))
+                    {
+                        MessageBox.Show("Error en la actualización de datos, revise haber rellenado las columnas");
+                        return;
+                    }
+                }
+            }
+
+            List<Productos> listaEditada = new List<Productos>();
+
+            foreach (DataGridViewRow fila in dataGridViewEdicion.Rows) // ← cambiar aquí también
+            {
+                if (fila.IsNewRow) continue;
+
+                listaEditada.Add(new Productos
+                {
+                    Codigo = fila.Cells["Codigo"].Value.ToString(),
+                    Nombre = fila.Cells["Nombre"].Value.ToString(),
+                    Marca = fila.Cells["Marca"].Value.ToString(),
+                    PrecioCompra = fila.Cells["PrecioCompra"].Value.ToString(),
+                    PrecioVenta = fila.Cells["PrecioVenta"].Value.ToString(),
+                    Existencia = fila.Cells["Existencia"].Value.ToString()
+                });
+            }
+
+            productosBase.GuardarTodo(listaEditada);
+            MessageBox.Show("Cambios guardados correctamente");
+            panelConfirmacion.Visible = false;
+
+        }
+
+        private void buttonEliminarColum_Click(object sender, EventArgs e)
+        {
+            if (dataGridViewEdicion.CurrentRow == null)
+
+            {
+                MessageBox.Show("Selecciona un producto primero");
+                return;
+
+            }
+            _codigoAEliminar = dataGridViewEdicion.CurrentRow.Cells["Codigo"].Value.ToString();
             
+            panelConfirmate.Visible = true;
+            
+            panelConfirmate.BringToFront(); // Asegura que el panel de confirmación esté al frente para que el usuario lo vea claramente
+        }
+
+        private void buttonnot_Click(object sender, EventArgs e)
+        {
+            panelConfirmate.Visible = false;
+        }
+
+        private void buttonyes_Click(object sender, EventArgs e)
+        {
+            
+            productosBase.EliminarProducto(_codigoAEliminar);
+            CargaGridProductos1();
+            MessageBox.Show("Producto eliminado correctamente");
+
+            panelConfirmate.Visible = false;
+        }
+
+        private void buttonG_Click(object sender, EventArgs e)
+        {
+            tabControl1.SelectedTab = Gerente;
         }
     }
 }

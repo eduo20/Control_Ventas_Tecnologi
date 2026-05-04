@@ -87,9 +87,19 @@
             this.label10 = new System.Windows.Forms.Label();
             this.dateTimePicker4 = new System.Windows.Forms.DateTimePicker();
             this.Modificar = new System.Windows.Forms.TabPage();
+            this.buttonCargar = new System.Windows.Forms.Button();
             this.buttonEditar = new System.Windows.Forms.Button();
             this.dataGridViewEdicion = new System.Windows.Forms.DataGridView();
-            this.buttonCargar = new System.Windows.Forms.Button();
+            this.buttonEliminarColum = new System.Windows.Forms.Button();
+            this.buttonno = new System.Windows.Forms.Button();
+            this.buttonsi = new System.Windows.Forms.Button();
+            this.label18 = new System.Windows.Forms.Label();
+            this.panelConfirmacion = new System.Windows.Forms.Panel();
+            this.panelConfirmate = new System.Windows.Forms.Panel();
+            this.label19 = new System.Windows.Forms.Label();
+            this.buttonyes = new System.Windows.Forms.Button();
+            this.buttonnot = new System.Windows.Forms.Button();
+            this.buttonG = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.Inicio.SuspendLayout();
             this.panelUser1.SuspendLayout();
@@ -101,6 +111,8 @@
             this.nuevosProdutos.SuspendLayout();
             this.Modificar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewEdicion)).BeginInit();
+            this.panelConfirmacion.SuspendLayout();
+            this.panelConfirmate.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -552,6 +564,7 @@
             this.dataGridViewProductos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewProductos.Size = new System.Drawing.Size(1026, 453);
             this.dataGridViewProductos.TabIndex = 0;
+            this.dataGridViewProductos.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewProductos_CellClick);
             // 
             // nuevosProdutos
             // 
@@ -726,6 +739,10 @@
             // 
             // Modificar
             // 
+            this.Modificar.Controls.Add(this.buttonG);
+            this.Modificar.Controls.Add(this.panelConfirmate);
+            this.Modificar.Controls.Add(this.buttonEliminarColum);
+            this.Modificar.Controls.Add(this.panelConfirmacion);
             this.Modificar.Controls.Add(this.buttonCargar);
             this.Modificar.Controls.Add(this.buttonEditar);
             this.Modificar.Controls.Add(this.dataGridViewEdicion);
@@ -736,13 +753,23 @@
             this.Modificar.Text = "Modificar datos";
             this.Modificar.UseVisualStyleBackColor = true;
             // 
+            // buttonCargar
+            // 
+            this.buttonCargar.Location = new System.Drawing.Point(34, 605);
+            this.buttonCargar.Name = "buttonCargar";
+            this.buttonCargar.Size = new System.Drawing.Size(105, 55);
+            this.buttonCargar.TabIndex = 3;
+            this.buttonCargar.Text = "Recargar";
+            this.buttonCargar.UseVisualStyleBackColor = true;
+            this.buttonCargar.Click += new System.EventHandler(this.buttonCargar_Click);
+            // 
             // buttonEditar
             // 
-            this.buttonEditar.Location = new System.Drawing.Point(405, 550);
+            this.buttonEditar.Location = new System.Drawing.Point(250, 511);
             this.buttonEditar.Name = "buttonEditar";
             this.buttonEditar.Size = new System.Drawing.Size(198, 55);
             this.buttonEditar.TabIndex = 2;
-            this.buttonEditar.Text = "Aceptar cambios";
+            this.buttonEditar.Text = "Realizar cambios";
             this.buttonEditar.UseVisualStyleBackColor = true;
             this.buttonEditar.Click += new System.EventHandler(this.buttonEditar_Click);
             // 
@@ -756,15 +783,107 @@
             this.dataGridViewEdicion.Size = new System.Drawing.Size(1026, 453);
             this.dataGridViewEdicion.TabIndex = 1;
             // 
-            // buttonCargar
+            // buttonEliminarColum
             // 
-            this.buttonCargar.Location = new System.Drawing.Point(675, 550);
-            this.buttonCargar.Name = "buttonCargar";
-            this.buttonCargar.Size = new System.Drawing.Size(177, 55);
-            this.buttonCargar.TabIndex = 3;
-            this.buttonCargar.Text = "Recargar";
-            this.buttonCargar.UseVisualStyleBackColor = true;
-            this.buttonCargar.Click += new System.EventHandler(this.buttonCargar_Click);
+            this.buttonEliminarColum.Location = new System.Drawing.Point(535, 511);
+            this.buttonEliminarColum.Name = "buttonEliminarColum";
+            this.buttonEliminarColum.Size = new System.Drawing.Size(216, 55);
+            this.buttonEliminarColum.TabIndex = 5;
+            this.buttonEliminarColum.Text = "Eliminar columnas ";
+            this.buttonEliminarColum.UseVisualStyleBackColor = true;
+            this.buttonEliminarColum.Click += new System.EventHandler(this.buttonEliminarColum_Click);
+            // 
+            // buttonno
+            // 
+            this.buttonno.Location = new System.Drawing.Point(17, 99);
+            this.buttonno.Name = "buttonno";
+            this.buttonno.Size = new System.Drawing.Size(103, 33);
+            this.buttonno.TabIndex = 0;
+            this.buttonno.Text = "Regresar";
+            this.buttonno.UseVisualStyleBackColor = true;
+            this.buttonno.Click += new System.EventHandler(this.buttonno_Click);
+            // 
+            // buttonsi
+            // 
+            this.buttonsi.Location = new System.Drawing.Point(237, 99);
+            this.buttonsi.Name = "buttonsi";
+            this.buttonsi.Size = new System.Drawing.Size(100, 33);
+            this.buttonsi.TabIndex = 1;
+            this.buttonsi.Text = "Aceptar";
+            this.buttonsi.UseVisualStyleBackColor = true;
+            this.buttonsi.Click += new System.EventHandler(this.buttonsi_Click);
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(13, 23);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(324, 24);
+            this.label18.TabIndex = 2;
+            this.label18.Text = "¿Esta seguro de realizar los cambios?";
+            // 
+            // panelConfirmacion
+            // 
+            this.panelConfirmacion.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelConfirmacion.Controls.Add(this.label18);
+            this.panelConfirmacion.Controls.Add(this.buttonsi);
+            this.panelConfirmacion.Controls.Add(this.buttonno);
+            this.panelConfirmacion.Location = new System.Drawing.Point(367, 236);
+            this.panelConfirmacion.Name = "panelConfirmacion";
+            this.panelConfirmacion.Size = new System.Drawing.Size(368, 148);
+            this.panelConfirmacion.TabIndex = 4;
+            this.panelConfirmacion.Visible = false;
+            // 
+            // panelConfirmate
+            // 
+            this.panelConfirmate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelConfirmate.Controls.Add(this.label19);
+            this.panelConfirmate.Controls.Add(this.buttonyes);
+            this.panelConfirmate.Controls.Add(this.buttonnot);
+            this.panelConfirmate.Location = new System.Drawing.Point(367, 232);
+            this.panelConfirmate.Name = "panelConfirmate";
+            this.panelConfirmate.Size = new System.Drawing.Size(368, 148);
+            this.panelConfirmate.TabIndex = 5;
+            this.panelConfirmate.Visible = false;
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(13, 23);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(324, 24);
+            this.label19.TabIndex = 2;
+            this.label19.Text = "¿Esta seguro de realizar los cambios?";
+            // 
+            // buttonyes
+            // 
+            this.buttonyes.Location = new System.Drawing.Point(237, 99);
+            this.buttonyes.Name = "buttonyes";
+            this.buttonyes.Size = new System.Drawing.Size(100, 33);
+            this.buttonyes.TabIndex = 1;
+            this.buttonyes.Text = "Aceptar";
+            this.buttonyes.UseVisualStyleBackColor = true;
+            this.buttonyes.Click += new System.EventHandler(this.buttonyes_Click);
+            // 
+            // buttonnot
+            // 
+            this.buttonnot.Location = new System.Drawing.Point(17, 99);
+            this.buttonnot.Name = "buttonnot";
+            this.buttonnot.Size = new System.Drawing.Size(103, 33);
+            this.buttonnot.TabIndex = 0;
+            this.buttonnot.Text = "Regresar";
+            this.buttonnot.UseVisualStyleBackColor = true;
+            this.buttonnot.Click += new System.EventHandler(this.buttonnot_Click);
+            // 
+            // buttonG
+            // 
+            this.buttonG.Location = new System.Drawing.Point(34, 501);
+            this.buttonG.Name = "buttonG";
+            this.buttonG.Size = new System.Drawing.Size(105, 42);
+            this.buttonG.TabIndex = 6;
+            this.buttonG.Text = "Regresar";
+            this.buttonG.UseVisualStyleBackColor = true;
+            this.buttonG.Click += new System.EventHandler(this.buttonG_Click);
             // 
             // Form1
             // 
@@ -795,6 +914,10 @@
             this.nuevosProdutos.PerformLayout();
             this.Modificar.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewEdicion)).EndInit();
+            this.panelConfirmacion.ResumeLayout(false);
+            this.panelConfirmacion.PerformLayout();
+            this.panelConfirmate.ResumeLayout(false);
+            this.panelConfirmate.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -861,8 +984,18 @@
         private System.Windows.Forms.Button buttonatras;
         private System.Windows.Forms.TabPage Modificar;
         private System.Windows.Forms.Button buttonEditar;
-        private System.Windows.Forms.DataGridView dataGridViewEdicion;
         private System.Windows.Forms.Button buttonCargar;
+        private System.Windows.Forms.DataGridView dataGridViewEdicion;
+        private System.Windows.Forms.Button buttonEliminarColum;
+        private System.Windows.Forms.Panel panelConfirmacion;
+        private System.Windows.Forms.Panel panelConfirmate;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.Button buttonyes;
+        private System.Windows.Forms.Button buttonnot;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Button buttonsi;
+        private System.Windows.Forms.Button buttonno;
+        private System.Windows.Forms.Button buttonG;
     }
 }
 
