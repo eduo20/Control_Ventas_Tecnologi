@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.Json;
@@ -68,14 +69,15 @@ namespace Control_Ventas_Tecnologi
         // Este método verifica si hay algún TextBox vacío en el formulario y muestra un mensaje si es así.
         private bool DetectarTextoVacio()
         {
-            bool camponoValido = this.Controls.OfType<TextBox>().Any(t => string.IsNullOrWhiteSpace(t.Text)); //controls es el formulario, oftype busca los textbox, any verifica si alguno cumple la condicion de estar vacio o con espacios en blanco
+            bool camponoValido = tabControl1.SelectedTab.Controls
+        .OfType<TextBox>()
+        .Any(t => string.IsNullOrWhiteSpace(t.Text));
 
             if (camponoValido)
             {
                 MessageBox.Show("Aún faltan campos por completar.");
-                return true; 
+                return true;
             }
-
             return false;
         }
         private void buttonGerente_Click(object sender, EventArgs e)
@@ -94,13 +96,16 @@ namespace Control_Ventas_Tecnologi
             if (string.IsNullOrWhiteSpace(textUser.Text)) // Verifica si el campo de usuario está vacío o contiene solo espacios en blanco
             {
                 MessageBox.Show("Por favor, ingrese su nombre de usuario.");
-                return; 
+                return;
             }
+
+
 
             baseDatosEmpleados baseDatos = new baseDatosEmpleados(); //llama a la clase
             List<Empleados> bsEmpleados = baseDatos.LeerEmpleados(); //lee la lista de empleados del json
 
-            
+        
+
 
             _empleadoLogueado = bsEmpleados.FirstOrDefault(emp => emp.user == textUser.Text); //Compara la lista Json con el dato ingresado en el Texbox, si encuentra una coincidencia, asigna el empleado a la variable _empleadoLogueado
 

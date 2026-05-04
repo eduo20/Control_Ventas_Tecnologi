@@ -1,16 +1,19 @@
-[{
-    "user": "Cesar Lopéz",
-    "password": "123CER",
-    "rol": "Gerente"
-},
-{ "user": "Jorge Alvarez",
-    "password": "JR23Z",
-    "rol": "Cajero"
+[
+    {
+        "user": "Cesar Lopéz",
+        "password": "123CER",
+        "rol": "Gerente"
+    },
+    {
+        "user": "Jorge Alvarez",
+        "password": "JR23Z",
+        "rol": "Cajero"
 
-},
-{   "user":"Luis Martinez",
-    "password": "Pfefe3",
-    "rol": "Cajero"
-        
-}    
+    },
+    {
+        "user": "Luis Martinez",
+        "password": "Pfefe3",
+        "rol": "Cajero"
+
+    }
 ]   

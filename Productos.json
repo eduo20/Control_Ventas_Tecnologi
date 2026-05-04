@@ -100,7 +100,7 @@
     "Nombre": "Tarjeta de Video RTX 4070",
     "Marca": "NVIDIA",
     "PrecioCompra": "450.00",
-    "PrecioVenta": "599.00",
+    "PrecioVenta": "700.00",
     "Existencia": "6"
   },
   {
@@ -144,11 +144,11 @@
     "Existencia": "6"
   },
   {
-    "Codigo": "592Hl",
-    "Nombre": "Samsung buds pro",
-    "Marca": "Samsung",
-    "PrecioCompra": "2000",
-    "PrecioVenta": "2600",
-    "Existencia": "8"
+    "Codigo": "AXZUS",
+    "Nombre": "Azus 1",
+    "Marca": "Azus",
+    "PrecioCompra": "4000",
+    "PrecioVenta": "4500",
+    "Existencia": "9"
   }
 ]
