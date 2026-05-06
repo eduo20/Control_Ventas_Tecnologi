@@ -89,6 +89,8 @@ namespace Control_Ventas_Tecnologi
         private void buttonRegresar1_Click(object sender, EventArgs e)
         {
             panelUser1.Visible = false;
+            textUser.Clear();
+
         }
 
         private void buttonAvanzar1_Click(object sender, EventArgs e)
@@ -104,7 +106,7 @@ namespace Control_Ventas_Tecnologi
             baseDatosEmpleados baseDatos = new baseDatosEmpleados(); //llama a la clase
             List<Empleados> bsEmpleados = baseDatos.LeerEmpleados(); //lee la lista de empleados del json
 
-        
+
 
 
             _empleadoLogueado = bsEmpleados.FirstOrDefault(emp => emp.user == textUser.Text); //Compara la lista Json con el dato ingresado en el Texbox, si encuentra una coincidencia, asigna el empleado a la variable _empleadoLogueado
@@ -120,13 +122,13 @@ namespace Control_Ventas_Tecnologi
             }
             else
             {
-                
+
 
                 MessageBox.Show("Usuario incorrecto, intente de nuevo");
 
                 _empleadoLogueado = null; // Limpia el empleado logueado en caso de error
-                
-                
+
+
                 textUser.Clear(); // Limpia el campo de usuario en caso de error
 
             }
@@ -144,29 +146,55 @@ namespace Control_Ventas_Tecnologi
             if (string.IsNullOrWhiteSpace(textBoxContra.Text))
             {
                 MessageBox.Show("Por favor, ingrese su contraseña.");
-                return; 
+                return;
             }
 
             if (_empleadoLogueado != null && textBoxContra.Text == _empleadoLogueado.password) // Verifica que el empleado logueado no sea nulo y que la contraseña ingresada coincida con la del empleado
             {
                 if (_empleadoLogueado.rol == "Gerente")
+                {
+
                     tabControl1.SelectedTab = Gerente; // Cambia a la pestaña "Gerente" si la contraseña es correcta
+                }
 
 
                 else if (_empleadoLogueado.rol == "Cajero")
                 {
-                    tabControl1.SelectedTab = Cajero;
+
+                    using (Form2 f2 = new Form2()) // Usamos 'using' para asegurar limpieza
+                    {
+                        this.Hide();
+                        if (f2.ShowDialog() == DialogResult.OK)
+                        {
+                            this.Show();
+
+                            // LEEMOS LO QUE PASÓ EN EL FORM2
+                            if (f2.AccionARealizar == "REGISTRAR")
+                            {
+
+                                tabControl1.SelectedTab = Clientes;
+                                textBoxNitRegistro.Text = f2.NitSeleccionado;
+                            }
+                            else if (f2.AccionARealizar == "VENDER")
+                            {
+                                // Ir a la pestaña de compras directamente
+                                tabControl1.SelectedTab = Cajero;
+                                labelNitVenta.Text = f2.NitSeleccionado;
+                            }
+                        }
+
+                    }
                 }
-                panelContra1.Visible = false; // Oculta el panel de contraseña después de un inicio de sesión exitoso
 
+                else
+                {
+                    MessageBox.Show("Contraseña incorrecta, intente de nuevo");
+                    textBoxContra.Clear(); // Limpia el campo de contraseña en caso de error
+                }
             }
 
-            else
-            {
-                MessageBox.Show("Contraseña incorrecta, intente de nuevo");
-                textBoxContra.Clear(); // Limpia el campo de contraseña en caso de error
-            }
         }
+    
 
         private void buttonCajero_Click(object sender, EventArgs e)
         {
@@ -220,7 +248,7 @@ namespace Control_Ventas_Tecnologi
 
         private void buttonNuevos_Click(object sender, EventArgs e)
         {
-            if(DetectarTextoVacio()) 
+            if (DetectarTextoVacio())
             {
                 return; // Detiene la ejecución del método si hay un TextBox vacío
             }
@@ -233,7 +261,7 @@ namespace Control_Ventas_Tecnologi
                 PrecioVenta = textBoxPrecioVenta.Text,
                 Existencia = textBoxCantidad.Text
 
-                
+
             };
             LimpiarEntradas(); // Limpia los TextBox después de crear el producto
             productosBase.GuardarProductos(produc);
@@ -241,7 +269,7 @@ namespace Control_Ventas_Tecnologi
             _listaProductos = productosBase.LeerProductos();
 
             MessageBox.Show("Producto agregado correctamente");
-            
+
 
         }
 
@@ -282,11 +310,11 @@ namespace Control_Ventas_Tecnologi
 
         }
 
-        
+
 
         private void dataGridViewProductos_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-           
+
         }
 
         private void buttonno_Click(object sender, EventArgs e)
@@ -347,9 +375,9 @@ namespace Control_Ventas_Tecnologi
 
             }
             _codigoAEliminar = dataGridViewEdicion.CurrentRow.Cells["Codigo"].Value.ToString();
-            
+
             panelConfirmate.Visible = true;
-            
+
             panelConfirmate.BringToFront(); // Asegura que el panel de confirmación esté al frente para que el usuario lo vea claramente
         }
 
@@ -360,7 +388,7 @@ namespace Control_Ventas_Tecnologi
 
         private void buttonyes_Click(object sender, EventArgs e)
         {
-            
+
             productosBase.EliminarProducto(_codigoAEliminar);
             CargaGridProductos1();
             MessageBox.Show("Producto eliminado correctamente");
@@ -372,6 +400,9 @@ namespace Control_Ventas_Tecnologi
         {
             tabControl1.SelectedTab = Gerente;
         }
+
+       
+        
     }
 }
 
