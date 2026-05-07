@@ -56,10 +56,12 @@
             // 
             // comboBoxnits
             // 
+            this.comboBoxnits.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.comboBoxnits.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.comboBoxnits.FormattingEnabled = true;
             this.comboBoxnits.Location = new System.Drawing.Point(162, 91);
             this.comboBoxnits.Name = "comboBoxnits";
-            this.comboBoxnits.Size = new System.Drawing.Size(266, 21);
+            this.comboBoxnits.Size = new System.Drawing.Size(266, 24);
             this.comboBoxnits.TabIndex = 2;
             // 
             // label2
@@ -67,7 +69,7 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(45, 91);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(35, 13);
+            this.label2.Size = new System.Drawing.Size(44, 16);
             this.label2.TabIndex = 3;
             this.label2.Text = "label2";
             // 
@@ -79,6 +81,8 @@
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
             this.Name = "Form2";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Load += new System.EventHandler(this.Form2_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

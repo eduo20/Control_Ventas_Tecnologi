@@ -171,15 +171,16 @@ namespace Control_Ventas_Tecnologi
                             // LEEMOS LO QUE PASÓ EN EL FORM2
                             if (f2.AccionARealizar == "REGISTRAR")
                             {
-
+                                
                                 tabControl1.SelectedTab = Clientes;
-                                textBoxNitRegistro.Text = f2.NitSeleccionado;
+                                textBoxNits.Text = f2.NitSeleccionado; // Pasamos el NIT seleccionado al TextBox de registro de clientes para no escribirlo denuevo
+
                             }
                             else if (f2.AccionARealizar == "VENDER")
                             {
                                 // Ir a la pestaña de compras directamente
                                 tabControl1.SelectedTab = Cajero;
-                                labelNitVenta.Text = f2.NitSeleccionado;
+                                l.Text = f2.NitSeleccionado;
                             }
                         }
 
@@ -401,8 +402,37 @@ namespace Control_Ventas_Tecnologi
             tabControl1.SelectedTab = Gerente;
         }
 
-       
-        
+        private void buttonRegistrar_Click(object sender, EventArgs e)
+        {
+            DatosCliente newCliente = new DatosCliente
+            {
+                nit = textBoxNits.Text,
+                nombre = textBoxnameNew.Text,
+                apellido = textBoxApellido.Text,
+                direcion = textBoxDireccion.Text,
+                telefono = textBoxNoTelefono.Text,
+            };
+
+
+            DetectarTextoVacio();
+            BaseDatosClienteas dbCliente = new BaseDatosClienteas();
+            dbCliente.Guardar(newCliente);
+
+            MessageBox.Show("Cliente registrado correctamente");
+
+            lblnitCompra.Text = newCliente.nit;
+            lblnameCompra.Text = newCliente.nombre + " " + newCliente.apellido;
+            tabControl1.SelectedTab = Cajero;
+
+        }
+
+        private void buttonReturn2_Click(object sender, EventArgs e)
+        {
+            Form2 f2 = new Form2();
+            this.Hide();
+            f2.ShowDialog();
+            this.Show();
+        }
     }
 }
 

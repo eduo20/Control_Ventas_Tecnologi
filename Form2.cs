@@ -14,7 +14,7 @@ namespace Control_Ventas_Tecnologi
     public partial class Form2 : Form
     {
         // Propiedades para almacenar el NIT seleccionado y la acción a realizar
-
+        //Se preguntarans donde estan en el form1, y la respuesta es que se guardan en estas propiedades para que el Form1 las pueda leer después de cerrar el Form2
         public string NitSeleccionado { get; set; }  
         public string AccionARealizar { get; set; }
 
@@ -63,6 +63,21 @@ namespace Control_Ventas_Tecnologi
             this.Hide();
             f1.ShowDialog();
             this.Show();
+        }
+
+        private void Form2_Load(object sender, EventArgs e)
+        {
+            BaseDatosClienteas db = new BaseDatosClienteas();
+            List<DatosCliente> lista = db.Leer();
+
+            
+            comboBoxnits.Items.Clear();
+
+            
+            foreach (var cliente in lista)
+            {
+                comboBoxnits.Items.Add(cliente.nit);
+            }
         }
     }
 }

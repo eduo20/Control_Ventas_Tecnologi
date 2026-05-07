@@ -113,6 +113,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="Clientes.json" />
     <None Include="Emplados.json" />
     <None Include="packages.config" />
     <None Include="Productos.json" />
