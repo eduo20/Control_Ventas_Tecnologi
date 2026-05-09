@@ -71,5 +71,25 @@ namespace Control_Ventas_Tecnologi
                 MessageBox.Show("Error crítico al guardar la factura: " + ex.Message);
             }
         }
+
+        public void GuardarTodo(List<Factura> lista)
+        {
+            try
+            {
+                var opciones = new JsonSerializerOptions { WriteIndented = true };
+                var json = JsonSerializer.Serialize(lista, opciones);
+
+                File.WriteAllText(_rutaFacturasbin, json);
+
+                if (Directory.Exists(Path.GetDirectoryName(_rutaFacturasGit)))
+                {
+                    File.WriteAllText(_rutaFacturasGit, json);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al guardar cambios en facturas: " + ex.Message);
+            }
+        }
     }
 }

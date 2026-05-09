@@ -13,7 +13,7 @@
     "Marca": "HP",
     "PrecioCompra": "600.00",
     "PrecioVenta": "749.99",
-    "Existencia": 4
+    "Existencia": -6
   },
   {
     "Codigo": "LAP-003",
@@ -37,7 +37,7 @@
     "Marca": "Apple",
     "PrecioCompra": "900.00",
     "PrecioVenta": "1099.00",
-    "Existencia": 10
+    "Existencia": 6
   },
   {
     "Codigo": "CEL-003",
@@ -85,7 +85,7 @@
     "Marca": "Anker",
     "PrecioCompra": "20.00",
     "PrecioVenta": "45.00",
-    "Existencia": 30
+    "Existencia": 24
   },
   {
     "Codigo": "ACC-003",
@@ -101,7 +101,7 @@
     "Marca": "NVIDIA",
     "PrecioCompra": "450.00",
     "PrecioVenta": "700.00",
-    "Existencia": 6
+    "Existencia": 2
   },
   {
     "Codigo": "COM-002",
@@ -117,7 +117,7 @@
     "Marca": "Kingston",
     "PrecioCompra": "85.00",
     "PrecioVenta": "130.00",
-    "Existencia": 18
+    "Existencia": 14
   },
   {
     "Codigo": "CD34",
@@ -125,7 +125,7 @@
     "Marca": "Apple",
     "PrecioCompra": "2000",
     "PrecioVenta": "2500",
-    "Existencia": 1
+    "Existencia": 7
   },
   {
     "Codigo": "JH2354",
@@ -141,7 +141,7 @@
     "Marca": "Redmi",
     "PrecioCompra": "1200",
     "PrecioVenta": "1500",
-    "Existencia": 4
+    "Existencia": 0
   },
   {
     "Codigo": "676767",
@@ -149,6 +149,6 @@
     "Marca": "Razer",
     "PrecioCompra": "1000",
     "PrecioVenta": "1200",
-    "Existencia": 8
+    "Existencia": 6
   }
 ]

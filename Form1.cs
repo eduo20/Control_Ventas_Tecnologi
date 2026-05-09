@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -23,12 +23,91 @@ namespace Control_Ventas_Tecnologi
         private ProductosBaseDatos productosBase = new ProductosBaseDatos(); // Instancia de la clase para acceder a los productos
         private string _codigoAEliminar; //| Variable para almacenar el código del producto a eliminar
         private decimal totalFactura = 0; // Para acumular el total de la venta actual
+        private ContextMenuStrip menuEntregas; // Menú para cambiar estado de entrega
+        private CheckBox chkEntregado; // CheckBox para marcar entrega inmediata
+        private Label lblClienteFactura; // Label para mostrar nombre cliente en factura
+        private Label lblTotalFacturaFinal; // Label para mostrar total en factura final
 
         public Form1()
         {
             InitializeComponent();
             ConfigurarVenta();
+            ConfigurarMenuEntregas();
+            ConfigurarControlesExtra();
+        }
 
+        private void ConfigurarControlesExtra()
+        {
+            // Checkbox en Cajero: Reubicado para mayor visibilidad al lado de los datos de venta
+            chkEntregado = new CheckBox();
+            chkEntregado.Text = "Entrega Inmediata";
+            chkEntregado.AutoSize = true;
+            chkEntregado.Location = new Point(408, 160); // Cerca del selector de fecha
+            chkEntregado.Font = new Font("Arial", 10, FontStyle.Bold);
+            Cajero.Controls.Add(chkEntregado);
+            chkEntregado.BringToFront();
+
+            // Label Cliente en Factura (Compras): Reubicado y tamaño de fuente ajustado para evitar que quede oculto
+            lblClienteFactura = new Label();
+            lblClienteFactura.AutoSize = true;
+            lblClienteFactura.Location = new Point(30, 80); // Subido para dar espacio
+            lblClienteFactura.Font = new Font("Arial", 11, FontStyle.Bold);
+            Compras.Controls.Add(lblClienteFactura);
+            lblClienteFactura.BringToFront();
+
+            // Label Total en Factura (Compras): Reubicado y tamaño de fuente ajustado
+            lblTotalFacturaFinal = new Label();
+            lblTotalFacturaFinal.AutoSize = true;
+            lblTotalFacturaFinal.Location = new Point(30, 120);
+            lblTotalFacturaFinal.Font = new Font("Arial", 12, FontStyle.Bold);
+            lblTotalFacturaFinal.ForeColor = Color.DarkBlue;
+            Compras.Controls.Add(lblTotalFacturaFinal);
+            lblTotalFacturaFinal.BringToFront();
+
+            // Ajuste estético de etiquetas de producto para que aparezcan "al lado" o de forma más integrada
+            lblNombreProd.Location = new Point(408, 250); // Justo debajo del combo de código
+            lblPrecio.Location = new Point(650, 215);    // Al lado del combo de código
+            lblPrecio.Font = new Font("Arial", 10, FontStyle.Bold);
+            lblPrecio.ForeColor = Color.DarkRed;
+
+            // Configurar el DateTimePicker para que solo muestre fecha corta
+            dateTimePickerFecha.Format = DateTimePickerFormat.Short;
+            
+            // Mover No. Factura a una esquina
+            lblNoFactura.Location = new Point(20, 20);
+            lblNoFactura.Font = new Font("Arial", 10, FontStyle.Italic);
+        }
+
+        private void ConfigurarMenuEntregas()
+        {
+            menuEntregas = new ContextMenuStrip();
+            ToolStripMenuItem itemEntregado = new ToolStripMenuItem("Marcar como ENTREGA CONFIRMADA");
+            ToolStripMenuItem itemPendiente = new ToolStripMenuItem("Marcar como PENDIENTE");
+
+            itemEntregado.Click += (s, e) => CambiarEstadoEntrega(true);
+            itemPendiente.Click += (s, e) => CambiarEstadoEntrega(false);
+
+            menuEntregas.Items.Add(itemEntregado);
+            menuEntregas.Items.Add(itemPendiente);
+            dataGridViewPendientes.ContextMenuStrip = menuEntregas;
+        }
+
+        private void CambiarEstadoEntrega(bool entregado)
+        {
+            if (dataGridViewPendientes.CurrentRow == null) return;
+
+            string noFactura = dataGridViewPendientes.CurrentRow.Cells["Factura"].Value.ToString();
+            BaseDatosFactura dbFact = new BaseDatosFactura();
+            List<Factura> todas = dbFact.LeerFacturas();
+
+            var fact = todas.FirstOrDefault(f => f.NoFactura == noFactura);
+            if (fact != null)
+            {
+                fact.Entregado = entregado;
+                dbFact.GuardarTodo(todas);
+                MessageBox.Show("Estado actualizado correctamente");
+                CargarGridPendientes();
+            }
         }
 
         // Este método se encarga de cargar los productos en los DataGridView cada vez que se hace un cambio (agregar, editar, eliminar)
@@ -50,7 +129,7 @@ namespace Control_Ventas_Tecnologi
             dataGridViewEdicion.ClearSelection();
 
             dataGridViewCarrito.DataSource = null;
-            
+
 
         }
 
@@ -65,7 +144,7 @@ namespace Control_Ventas_Tecnologi
                 {
                     ((TextBox)c).Clear();
                 }
-                // Si tus TextBox están dentro de un TabControl o Panel, 
+                // Si tus TextBox están dentro de un TabControl o Panel,
                 // debes buscar dentro de ese contenedor:
                 foreach (Control subControl in tabControl1.SelectedTab.Controls)
                 {
@@ -166,7 +245,7 @@ namespace Control_Ventas_Tecnologi
                 return;
             }
 
-            if (_empleadoLogueado != null && textBoxContra.Text == _empleadoLogueado.password) // Verifica que el empleado logueado no sea nulo y que la contraseña ingresada coincida con la del empleado
+            if (_empleadoLogueado != null && textBoxContra.Text == _empleadoLogueado.password) // Verifica que el empleado logueado no sea nulo y que la contraseña ingresada coincida con la del empleado 
             {
                 if (_empleadoLogueado.rol == "Gerente")
                 {
@@ -202,7 +281,7 @@ namespace Control_Ventas_Tecnologi
                                 lblnitCompra.Text = f2.NitSeleccionado;
                                 lblnombre.Text = clienteSeleccionado?.nombre + " " + clienteSeleccionado?.apellido; // Usamos el operador null-conditional para evitar errores en caso de que no se encuentre el cliente, aunque debería encontrarse siempre porque el Form2 solo muestra clientes existentes
                             }
-                        }   
+                        }
 
                     }
                 }
@@ -488,7 +567,7 @@ namespace Control_Ventas_Tecnologi
             this.Show();
         }
 
-        // Este método se encarga de configurar el ComboBox para que muestre los códigos de los productos con autocompletado, facilitando la selección del producto al momento de realizar una venta
+        // Este método se encarga de configurar el ComboBox para que muestre los códigos de los productos con autocompletado, facilitando la selección del producto al momento de realizar una venta       
         public void ConfigurarVenta()
         {
             _listaProductos = productosBase.LeerProductos();
@@ -508,6 +587,19 @@ namespace Control_Ventas_Tecnologi
             comboBoxCodigo.SelectedIndex = -1;
             comboBoxCodigo.Text = string.Empty;
 
+            // 4. Agregamos evento de cambio de texto para asegurar activación de controles incluso sin selección por click
+            comboBoxCodigo.TextChanged += (s, e) => ComboBoxCodigo_TextChanged(s, e);
+
+        }
+
+        // Se dispara al escribir en el combo, ayuda a desbloquear cantidad si el código es válido
+        private void ComboBoxCodigo_TextChanged(object sender, EventArgs e)
+        {
+            var p = _listaProductos.FirstOrDefault(x => x.Codigo == comboBoxCodigo.Text);
+            if (p != null)
+            {
+                ActualizarEstadoControles(p);
+            }
         }
 
 
@@ -516,26 +608,39 @@ namespace Control_Ventas_Tecnologi
         {
             if (comboBoxCodigo.SelectedIndex == -1 || comboBoxCodigo.SelectedItem == null)
             {
-                lblNombreProd.Text = "-";
-                lblPrecio.Text = "0.00";
-                lblDisponible.Text = "Seleccione producto";
+                // Si no hay nada seleccionado, verificamos si el texto coincide con algo (por si fue escrito)
+                var pTexto = _listaProductos.FirstOrDefault(x => x.Codigo == comboBoxCodigo.Text);
+                if (pTexto != null)
+                {
+                    ActualizarEstadoControles(pTexto);
+                    return;
+                }
+
+                lblNombreProd.Text = "Producto: -";
+                lblPrecio.Text = "Precio: Q 0.00";
+                lblDisponible.Text = "Estado: Seleccione producto";
                 numCantidad.Enabled = false;
                 return;
             }
 
-            Productos p = (Productos)comboBoxCodigo.SelectedItem;
-            lblNombreProd.Text = p.Nombre;
-            lblPrecio.Text = p.PrecioVenta;
+            if (comboBoxCodigo.SelectedItem is Productos p)
+            {
+                lblNombreProd.Text = "Producto: " + p.Nombre;
+                lblPrecio.Text = "Precio: Q " + p.PrecioVenta;
 
-            // Llamamos a la lógica de bloqueo/activación
-            ActualizarEstadoControles(p);
+                // Actualizamos también label24 por si se usa de respaldo
+                label24.Text = "Marca: " + p.Marca;
+
+                // Llamamos a la lógica de bloqueo/activación
+                ActualizarEstadoControles(p);
+            }
         }
 
 
         // Este método se encarga de añadir el producto seleccionado al carrito de compras, calculando el subtotal, actualizando el total a pagar, restando la cantidad seleccionada del stock en la RAM para mostrarlo en el label y limpiando los controles para la siguiente selección
         private void button1_Click_1(object sender, EventArgs e)
         {
-            if (comboBoxCodigo.SelectedItem is Productos p)
+            if (comboBoxCodigo.SelectedItem is Productos p || (_listaProductos.FirstOrDefault(x => x.Codigo == comboBoxCodigo.Text) is Productos p2 && (p = p2) != null))
             {
                 int cantElegida = (int)numCantidad.Value;
                 if (cantElegida <= 0) return;
@@ -557,7 +662,7 @@ namespace Control_Ventas_Tecnologi
 
                 // Limpiar para el siguiente
                 comboBoxCodigo.SelectedIndex = -1;
-                numCantidad.Value = 1;
+                numCantidad.Value = 0;
                 comboBoxCodigo.Focus();
             }
         }
@@ -566,13 +671,19 @@ namespace Control_Ventas_Tecnologi
         {
             try
             {
+                if (dataGridViewCarrito.Rows.Count == 0)
+                {
+                    MessageBox.Show("El carrito está vacío.");
+                    return;
+                }
+
                 Factura nuevaVenta = new Factura
                 {
                     Nit2 = lblnitCompra.Text,
                     NombreCliente = lblnombre.Text,
-                    FechaVenta = dateTimePickerFecha.Value, // Fecha seleccionada
-
-                    TotalPagado = totalFactura
+                    FechaVenta = dateTimePickerFecha.Value,
+                    TotalPagado = totalFactura,
+                    Entregado = chkEntregado.Checked // Captura el estado del checkbox
                 };
 
                 foreach (DataGridViewRow fila in dataGridViewCarrito.Rows)
@@ -582,7 +693,6 @@ namespace Control_Ventas_Tecnologi
                     string cod = fila.Cells["Codigo"].Value.ToString();
                     int cant = int.Parse(fila.Cells["Cantidad"].Value.ToString());
 
-                    // 1. Llenar el detalle de la factura
                     nuevaVenta.Items.Add(new DetalleVenta
                     {
                         Codigo = cod,
@@ -592,32 +702,47 @@ namespace Control_Ventas_Tecnologi
                         Subtotal = decimal.Parse(fila.Cells["Subtotal"].Value.ToString())
                     });
 
-                    // 2. Restar del stock global
                     var prodStock = _listaProductos.FirstOrDefault(x => x.Codigo == cod);
                     if (prodStock != null) prodStock.Existencia -= cant;
                 }
 
-                // 3. Guardar en los dos JSONs
                 BaseDatosFactura dbFact = new BaseDatosFactura();
                 dbFact.GuardarFactura(nuevaVenta);
-                lblNoFactura.Text = nuevaVenta.NoFactura;
 
-                // USAMOS EL MÉTODO QUE YA TIENES EN TU CLASE
+                // Actualizamos labels de la pestaña FACTURA (Compras)
+                lblNoFactura.Text = "No. Factura: " + nuevaVenta.NoFactura;
+                lblClienteFactura.Text = "Cliente: " + nuevaVenta.NombreCliente;
+                lblTotalFacturaFinal.Text = "TOTAL PAGADO: Q " + totalFactura.ToString("N2");
+
                 productosBase.GuardarTodo(_listaProductos);
 
                 MessageBox.Show("Venta realizada con éxito e inventario actualizado");
 
-                // 4. LIMPIEZA VITAL (Para que no se dupliquen datos en la siguiente venta)
-                
-                totalFactura = 0;                 // Reinicia el contador de dinero
-                lblTotalPagar.Text = "Q 0.00";    // Reinicia el texto del total
-                ActualizarDatosProducto();        //
+                // Actualización inmediata de reportes para el Gerente
+                CargarGridMasVendidos();
+                CargarGridPendientes();
+                CargarGridVentasPorFecha(dtpInicio.Value, dtpFin.Value);
+                CargarGridGanancias(dtpInicio.Value, dtpFin.Value);
+
+                // NO LIMPIAMOS EL CARRITO AQUÍ para que el usuario pueda ver la factura generada en la pestaña Compras
+                // La limpieza se hará al regresar (buttonFIn_Click)
+                chkEntregado.Checked = false;
+                ActualizarDatosProducto();
+
+                // Ir a la pestaña de factura final
+                tabControl1.SelectedTab = Compras;
             }
-            catch (Exception ex) { MessageBox.Show("Error: " + ex.Message); }
+            catch (Exception ex) { MessageBox.Show("Error al generar factura: " + ex.Message); }
         }
 
+        // Este botón sirve para regresar de la vista de factura final al cajero
         private void buttonFIn_Click(object sender, EventArgs e)
         {
+            // Limpiamos los datos de la venta anterior al regresar
+            totalFactura = 0;
+            lblTotalPagar.Text = "Q 0.00";
+            dataGridViewCarrito.Rows.Clear();
+            
             tabControl1.SelectedTab = Cajero;
         }
 
@@ -632,6 +757,8 @@ namespace Control_Ventas_Tecnologi
             {
                 lblDisponible.Text = "PRODUCTO AGOTADO";
                 lblDisponible.ForeColor = Color.Red;
+
+                numCantidad.Minimum = 0;
                 numCantidad.Maximum = 0;
                 numCantidad.Value = 0;
                 numCantidad.Enabled = false;
@@ -641,8 +768,15 @@ namespace Control_Ventas_Tecnologi
             {
                 lblDisponible.Text = "Stock: " + p.Existencia;
                 lblDisponible.ForeColor = Color.DarkGreen;
-                numCantidad.Maximum = p.Existencia;
+
                 numCantidad.Enabled = true;
+                numCantidad.Minimum = 1; // Aseguramos que el mínimo sea 1 si hay stock
+                numCantidad.Maximum = p.Existencia;
+                
+                // Solo reseteamos el valor si es necesario para evitar molestias al usuario
+                if (numCantidad.Value < 1 || numCantidad.Value > p.Existencia)
+                    numCantidad.Value = 1;
+
                 button1.Enabled = true;
             }
         }
@@ -656,8 +790,8 @@ namespace Control_Ventas_Tecnologi
         private void buttondatosVentas_Click(object sender, EventArgs e)
         {
             tabControl1.SelectedTab = DatosVenta;
+            CargarGridVentasPorFecha(dtpInicio.Value, dtpFin.Value);
         }
-
 
         private void CargarGridMasVendidos()
         {
@@ -679,6 +813,7 @@ namespace Control_Ventas_Tecnologi
 
             dgvMasVendidos.DataSource = null;
             dgvMasVendidos.DataSource = ranking;
+            dgvMasVendidos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
 
         // 2. TOTAL DE VENTAS ENTRE FECHAS
@@ -695,11 +830,13 @@ namespace Control_Ventas_Tecnologi
                     Factura = f.NoFactura,
                     Cliente = f.NombreCliente,
                     Fecha = f.FechaVenta.ToShortDateString(),
-                    Total = f.TotalPagado
+                    Total = f.TotalPagado,
+                    Estado = f.Entregado ? "ENTREGADO" : "PENDIENTE"
                 }).ToList();
 
             dgvTotalVentas.DataSource = null;
             dgvTotalVentas.DataSource = ventas;
+            dgvTotalVentas.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
             lblTotalDineroVentas.Text = "Total Ventas: Q " + ventas.Sum(v => v.Total).ToString("N2");
         }
@@ -734,6 +871,7 @@ namespace Control_Ventas_Tecnologi
             }
 
             lblResultadoGanancia.Text = "Ganancia Real: Q " + gananciaTotal.ToString("N2");
+            lblResultadoGanancia.ForeColor = Color.Blue;
         }
 
         // 4. VENTAS PENDIENTES
@@ -744,24 +882,39 @@ namespace Control_Ventas_Tecnologi
 
             if (todas == null) return;
 
-            var listaPendientes = todas
-                .Where(f => f.Entregado == false) // Asegúrate que tu clase Factura tenga: public bool Entregado { get; set; }
+            // Mostramos todas pero marcamos el estado claramente
+            var listaCompleta = todas
+                .OrderByDescending(f => f.FechaVenta)
                 .Select(f => new {
                     Factura = f.NoFactura,
                     Cliente = f.NombreCliente,
                     Fecha = f.FechaVenta.ToShortDateString(),
-                    Monto = f.TotalPagado
+                    Monto = "Q " + f.TotalPagado.ToString("N2"),
+                    Estado = f.Entregado ? "CONFIRMADA" : "PENDIENTE"
                 }).ToList();
 
             dataGridViewPendientes.DataSource = null;
-            dataGridViewPendientes.DataSource = listaPendientes;
+            dataGridViewPendientes.DataSource = listaCompleta;
+            dataGridViewPendientes.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+
+            // Pintar filas según estado
+            foreach (DataGridViewRow row in dataGridViewPendientes.Rows)
+            {
+                if (row.Cells["Estado"].Value.ToString() == "PENDIENTE")
+                {
+                    row.DefaultCellStyle.BackColor = Color.MistyRose;
+                }
+                else
+                {
+                    row.DefaultCellStyle.BackColor = Color.LightGreen;
+                }
+            }
         }
 
         private void buttonGanancias_Click(object sender, EventArgs e)
         {
             tabControl1.SelectedTab = DatosGanancia;
-            CargarGridGanancias(DateTime.Now.AddMonths(-1), DateTime.Now);
-
+            CargarGridGanancias(dtpInicio.Value, dtpFin.Value);
         }
 
         private void buttonOrden_Click(object sender, EventArgs e)
@@ -786,8 +939,28 @@ namespace Control_Ventas_Tecnologi
 
             MessageBox.Show("Reportes actualizados: Ventas y Ganancias filtradas por fecha, el resto muestra totales.");
         }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            tabControl1.SelectedTab = Gerente;
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            tabControl1.SelectedTab = Gerente;
+
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            tabControl1.SelectedTab = Gerente;
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            tabControl1.SelectedTab = Gerente;
+        }
     }
 
 
 }
-

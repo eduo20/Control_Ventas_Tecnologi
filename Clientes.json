@@ -26,5 +26,12 @@
     "apellido": "P\u00E9rez",
     "direcion": "5150848",
     "telefono": "Coatepeque"
+  },
+  {
+    "nit": "85853",
+    "nombre": "Juan",
+    "apellido": "Garcia",
+    "direcion": "88996633",
+    "telefono": "La Esperanza"
   }
 ]
