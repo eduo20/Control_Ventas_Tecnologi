@@ -5,7 +5,7 @@
     "Marca": "Apple",
     "PrecioCompra": "940.00",
     "PrecioVenta": "1199.00",
-    "Existencia": 6
+    "Existencia": 2
   },
   {
     "Codigo": "LAP-002",
@@ -29,7 +29,7 @@
     "Marca": "Samsung",
     "PrecioCompra": "850.00",
     "PrecioVenta": "1050.00",
-    "Existencia": 2
+    "Existencia": 0
   },
   {
     "Codigo": "CEL-002",

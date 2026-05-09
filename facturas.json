@@ -1,0 +1,28 @@
+[
+  {
+    "NoFactura": "FAC-00001",
+    "Nit2": "202024",
+    "NombreCliente": "Ruben P\u00E9rez",
+    "FechaVenta": "2026-02-03T12:34:24",
+    "Entregado": false,
+    "TotalPagado": 3448.00,
+    "Items": [
+      {
+        "Codigo": "LAP-001",
+        "Nombre": "MacBook Air M2",
+        "Marca": "",
+        "Cantidad": 2,
+        "PrecioUnitario": 1199.00,
+        "Subtotal": 2398.00
+      },
+      {
+        "Codigo": "CEL-001",
+        "Nombre": "Galaxy S24 Ultra",
+        "Marca": "",
+        "Cantidad": 1,
+        "PrecioUnitario": 1050.00,
+        "Subtotal": 1050.00
+      }
+    ]
+  }
+]

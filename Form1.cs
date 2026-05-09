@@ -23,6 +23,7 @@ namespace Control_Ventas_Tecnologi
         private ProductosBaseDatos productosBase = new ProductosBaseDatos(); // Instancia de la clase para acceder a los productos
         private string _codigoAEliminar; //| Variable para almacenar el código del producto a eliminar
         private decimal totalFactura = 0; // Para acumular el total de la venta actual
+
         public Form1()
         {
             InitializeComponent();
@@ -649,11 +650,141 @@ namespace Control_Ventas_Tecnologi
         private void button2_Click(object sender, EventArgs e)
         {
             tabControl1.SelectedTab = ReportesFav;
+            CargarGridMasVendidos();
         }
 
         private void buttondatosVentas_Click(object sender, EventArgs e)
         {
             tabControl1.SelectedTab = DatosVenta;
+        }
+
+
+        private void CargarGridMasVendidos()
+        {
+            BaseDatosFactura dbFact = new BaseDatosFactura();
+            List<Factura> todas = dbFact.LeerFacturas();
+
+            if (todas == null || !todas.Any()) return;
+
+            var ranking = todas
+                .SelectMany(f => f.Items)
+                .GroupBy(i => new { i.Codigo, i.Nombre })
+                .Select(g => new {
+                    Codigo = g.Key.Codigo,
+                    Producto = g.Key.Nombre,
+                    Vendidos = g.Sum(x => x.Cantidad)
+                })
+                .OrderByDescending(x => x.Vendidos)
+                .ToList();
+
+            dgvMasVendidos.DataSource = null;
+            dgvMasVendidos.DataSource = ranking;
+        }
+
+        // 2. TOTAL DE VENTAS ENTRE FECHAS
+        private void CargarGridVentasPorFecha(DateTime inicio, DateTime fin)
+        {
+            BaseDatosFactura dbFact = new BaseDatosFactura();
+            var todas = dbFact.LeerFacturas();
+
+            if (todas == null) return;
+
+            var ventas = todas
+                .Where(f => f.FechaVenta.Date >= inicio.Date && f.FechaVenta.Date <= fin.Date)
+                .Select(f => new {
+                    Factura = f.NoFactura,
+                    Cliente = f.NombreCliente,
+                    Fecha = f.FechaVenta.ToShortDateString(),
+                    Total = f.TotalPagado
+                }).ToList();
+
+            dgvTotalVentas.DataSource = null;
+            dgvTotalVentas.DataSource = ventas;
+
+            lblTotalDineroVentas.Text = "Total Ventas: Q " + ventas.Sum(v => v.Total).ToString("N2");
+        }
+
+        // 3. GANANCIA (Aquí es donde suele fallar por los nulos)
+        private void CargarGridGanancias(DateTime inicio, DateTime fin)
+        {
+            // SEGURIDAD: Si la lista global de productos está vacía, la cargamos
+            if (_listaProductos == null || _listaProductos.Count == 0)
+            {
+                _listaProductos = productosBase.LeerProductos();
+            }
+
+            BaseDatosFactura dbFact = new BaseDatosFactura();
+            var facturas = dbFact.LeerFacturas()
+                .Where(f => f.FechaVenta.Date >= inicio.Date && f.FechaVenta.Date <= fin.Date).ToList();
+
+            decimal gananciaTotal = 0;
+
+            foreach (var f in facturas)
+            {
+                foreach (var item in f.Items)
+                {
+                    var pInv = _listaProductos.FirstOrDefault(p => p.Codigo == item.Codigo);
+                    if (pInv != null)
+                    {
+                        // Convertimos el precio de compra asegurando que el formato decimal sea correcto
+                        decimal costo = decimal.Parse(pInv.PrecioCompra);
+                        gananciaTotal += (item.PrecioUnitario - costo) * item.Cantidad;
+                    }
+                }
+            }
+
+            lblResultadoGanancia.Text = "Ganancia Real: Q " + gananciaTotal.ToString("N2");
+        }
+
+        // 4. VENTAS PENDIENTES
+        private void CargarGridPendientes()
+        {
+            BaseDatosFactura dbFact = new BaseDatosFactura();
+            List<Factura> todas = dbFact.LeerFacturas();
+
+            if (todas == null) return;
+
+            var listaPendientes = todas
+                .Where(f => f.Entregado == false) // Asegúrate que tu clase Factura tenga: public bool Entregado { get; set; }
+                .Select(f => new {
+                    Factura = f.NoFactura,
+                    Cliente = f.NombreCliente,
+                    Fecha = f.FechaVenta.ToShortDateString(),
+                    Monto = f.TotalPagado
+                }).ToList();
+
+            dataGridViewPendientes.DataSource = null;
+            dataGridViewPendientes.DataSource = listaPendientes;
+        }
+
+        private void buttonGanancias_Click(object sender, EventArgs e)
+        {
+            tabControl1.SelectedTab = DatosGanancia;
+            CargarGridGanancias(DateTime.Now.AddMonths(-1), DateTime.Now);
+
+        }
+
+        private void buttonOrden_Click(object sender, EventArgs e)
+        {
+            tabControl1.SelectedTab = DatosPendiente;
+            CargarGridPendientes();
+        }
+
+        private void GenerarReporte_Click(object sender, EventArgs e)
+        {
+            // Fechas que solo usaremos para Ventas y Ganancias
+            DateTime inicio = dtpInicio.Value;
+            DateTime fin = dtpFin.Value;
+
+            // 1. Reportes SIN filtro de fecha (Historial total)
+            CargarGridMasVendidos();
+            CargarGridPendientes();
+
+            // 2. Reportes CON filtro de fecha (Rango específico)
+            CargarGridVentasPorFecha(inicio, fin);
+            CargarGridGanancias(inicio, fin);
+
+            MessageBox.Show("Reportes actualizados: Ventas y Ganancias filtradas por fecha, el resto muestra totales.");
         }
     }
 

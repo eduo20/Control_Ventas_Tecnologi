@@ -12,7 +12,7 @@ namespace Control_Ventas_Tecnologi
         public string Nit2 { get; set; } = string.Empty;
         public string NombreCliente { get; set; } = string.Empty; 
         public DateTime FechaVenta { get; set; }
-        public bool Entregado { get; set; } = false; // Propiedad nueva
+        public bool Entregado { get; set; } // Propiedad nueva
         public decimal TotalPagado { get; set; }
 
         // Una lista de los productos que se lleva el cliente
