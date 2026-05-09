@@ -1,10 +1,30 @@
 [
-  
   {
     "nit": "20250862",
     "nombre": "Eduardo",
-    "apellido": "Pérez",
+    "apellido": "P\u00E9rez",
     "direcion": "Zona 1",
     "telefono": "5566998877}"
+  },
+  {
+    "nit": "2040204",
+    "nombre": "Luis",
+    "apellido": "Mayorga",
+    "direcion": "454151521",
+    "telefono": "Zona 3"
+  },
+  {
+    "nit": "202508035",
+    "nombre": "Jorge",
+    "apellido": "El curioso",
+    "direcion": "45522006",
+    "telefono": "Zona B"
+  },
+  {
+    "nit": "202024",
+    "nombre": "Ruben",
+    "apellido": "P\u00E9rez",
+    "direcion": "5150848",
+    "telefono": "Coatepeque"
   }
 ]

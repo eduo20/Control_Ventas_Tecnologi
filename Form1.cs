@@ -16,21 +16,21 @@ namespace Control_Ventas_Tecnologi
     public partial class Form1 : Form
     {
 
-        // No borren los private chavos, esos solo funcionan en el programa principal no los deje publicos para que no afecten en el resto del codigo negativamente
-        // pd: todo esto lo investigue pq esta parte me generaba dudas ya que como estoy usando otra clase para la lectura y guardado de datos.
+        // Variables para manejar el estado de la aplicación desde global, como el empleado logueado y la lista de productos
 
         private Empleados _empleadoLogueado; // Variable para almacenar el empleado logueado
         private List<Productos> _listaProductos; // Variable para almacenar la lista de productos
         private ProductosBaseDatos productosBase = new ProductosBaseDatos(); // Instancia de la clase para acceder a los productos
         private string _codigoAEliminar; //| Variable para almacenar el código del producto a eliminar
+        private decimal totalFactura = 0; // Para acumular el total de la venta actual
         public Form1()
         {
             InitializeComponent();
-
+            ConfigurarVenta();
 
         }
 
-
+        // Este método se encarga de cargar los productos en los DataGridView cada vez que se hace un cambio (agregar, editar, eliminar)
         private void CargaGridProductos1()
         {
             _listaProductos = productosBase.LeerProductos();
@@ -40,7 +40,7 @@ namespace Control_Ventas_Tecnologi
             // Le volvemos a pasar la lista (que ya tiene los cambios de agregar/editar)
             dataGridViewProductos.DataSource = _listaProductos;
             dataGridViewProductos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridViewProductos.ClearSelection();
+            dataGridViewProductos.ClearSelection(); // Esto es para que no aparezca seleccionado el primer producto al cargar el grid, se ve más limpio así
 
             dataGridViewEdicion.DataSource = null;
             dataGridViewEdicion.DataSource = _listaProductos;
@@ -48,7 +48,13 @@ namespace Control_Ventas_Tecnologi
             dataGridViewEdicion.ReadOnly = false; // Permite la edición directa en el DataGridView
             dataGridViewEdicion.ClearSelection();
 
+            dataGridViewCarrito.DataSource = null;
+            
+
         }
+
+
+        //Sirve para limpiar
         private void LimpiarEntradas()
         {
             // Esto busca en todo el formulario
@@ -66,6 +72,8 @@ namespace Control_Ventas_Tecnologi
                 }
             }
         }
+
+
         // Este método verifica si hay algún TextBox vacío en el formulario y muestra un mensaje si es así.
         private bool DetectarTextoVacio()
         {
@@ -80,6 +88,8 @@ namespace Control_Ventas_Tecnologi
             }
             return false;
         }
+
+
         private void buttonGerente_Click(object sender, EventArgs e)
         {
 
@@ -93,6 +103,8 @@ namespace Control_Ventas_Tecnologi
 
         }
 
+
+        // Este método se encarga de verificar el usuario ingresado, compararlo con la lista de empleados y mostrar el panel de contraseña si el usuario es correcto
         private void buttonAvanzar1_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(textUser.Text)) // Verifica si el campo de usuario está vacío o contiene solo espacios en blanco
@@ -118,6 +130,7 @@ namespace Control_Ventas_Tecnologi
                 panelContra1.Visible = true;
                 MessageBox.Show("Usuario correcto, ingrese su contraseña");
                 panelUser1.Visible = false; // Oculta el panel de usuario después de un inicio de sesión exitoso
+                textUser.Clear();
 
             }
             else
@@ -141,6 +154,9 @@ namespace Control_Ventas_Tecnologi
             textBoxContra.Clear(); // ← agregar esto
         }
 
+
+
+        // Este método se encarga de verificar la contraseña ingresada, compararla con la del empleado logueado y mostrar la pestaña correspondiente según el rol del empleado
         private void buttonSiguiente2_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(textBoxContra.Text))
@@ -155,6 +171,7 @@ namespace Control_Ventas_Tecnologi
                 {
 
                     tabControl1.SelectedTab = Gerente; // Cambia a la pestaña "Gerente" si la contraseña es correcta
+                    textBoxContra.Clear();
                 }
 
 
@@ -171,31 +188,35 @@ namespace Control_Ventas_Tecnologi
                             // LEEMOS LO QUE PASÓ EN EL FORM2
                             if (f2.AccionARealizar == "REGISTRAR")
                             {
-                                
+
                                 tabControl1.SelectedTab = Clientes;
                                 textBoxNits.Text = f2.NitSeleccionado; // Pasamos el NIT seleccionado al TextBox de registro de clientes para no escribirlo denuevo
 
                             }
                             else if (f2.AccionARealizar == "VENDER")
                             {
+                                DatosCliente clienteSeleccionado = new BaseDatosClienteas().Leer().FirstOrDefault(c => c.nit == f2.NitSeleccionado); // Buscamos el cliente seleccionado en el Form2 para obtener su nombre completo y mostrarlo en la pestaña de compras, además del NIT que ya tenemos
                                 // Ir a la pestaña de compras directamente
                                 tabControl1.SelectedTab = Cajero;
-                                l.Text = f2.NitSeleccionado;
+                                lblnitCompra.Text = f2.NitSeleccionado;
+                                lblnombre.Text = clienteSeleccionado?.nombre + " " + clienteSeleccionado?.apellido; // Usamos el operador null-conditional para evitar errores en caso de que no se encuentre el cliente, aunque debería encontrarse siempre porque el Form2 solo muestra clientes existentes
                             }
-                        }
+                        }   
 
                     }
                 }
 
-                else
-                {
-                    MessageBox.Show("Contraseña incorrecta, intente de nuevo");
-                    textBoxContra.Clear(); // Limpia el campo de contraseña en caso de error
-                }
+
+            }
+            else
+            {
+                MessageBox.Show("Contraseña incorrecta, intente de nuevo");
+                textBoxContra.Clear(); // Limpia el campo de contraseña en caso de error
+
             }
 
         }
-    
+
 
         private void buttonCajero_Click(object sender, EventArgs e)
         {
@@ -247,6 +268,8 @@ namespace Control_Ventas_Tecnologi
             tabControl1.SelectedTab = Gerente;
         }
 
+
+        // Este método se encarga de crear un nuevo producto a partir de los datos ingresados en los TextBox, guardarlo en el JSON, mostrar un mensaje de confirmación y actualizar la lista de productos para que se refleje el cambio en el programa
         private void buttonNuevos_Click(object sender, EventArgs e)
         {
             if (DetectarTextoVacio())
@@ -260,7 +283,7 @@ namespace Control_Ventas_Tecnologi
                 Marca = textBoxMarca.Text,
                 PrecioCompra = textBoxPrecioCompra.Text,
                 PrecioVenta = textBoxPrecioVenta.Text,
-                Existencia = textBoxCantidad.Text
+                Existencia = int.Parse(textBoxCantidad.Text)
 
 
             };
@@ -273,8 +296,6 @@ namespace Control_Ventas_Tecnologi
 
 
         }
-
-
 
 
         private void button1_Click(object sender, EventArgs e) //Ya muestra automaticamente los datos en los grid
@@ -325,6 +346,7 @@ namespace Control_Ventas_Tecnologi
 
         }
 
+        // Este método se encarga de validar que no haya celdas vacías en el DataGridView de edición, crear una nueva lista de productos a partir de los datos editados, guardarla en el JSON, mostrar un mensaje de confirmación y actualizar la lista de productos para que se refleje el cambio en el programa
         private void buttonsi_Click(object sender, EventArgs e)
         {
 
@@ -356,7 +378,7 @@ namespace Control_Ventas_Tecnologi
                     Marca = fila.Cells["Marca"].Value.ToString(),
                     PrecioCompra = fila.Cells["PrecioCompra"].Value.ToString(),
                     PrecioVenta = fila.Cells["PrecioVenta"].Value.ToString(),
-                    Existencia = fila.Cells["Existencia"].Value.ToString()
+                    Existencia = fila.Cells["Existencia"].Value != null ? int.Parse(fila.Cells["Existencia"].Value.ToString()) : 0 // Maneja el caso de celdas vacías para Existencia, asignando 0 si es nulo o vacío
                 });
             }
 
@@ -366,6 +388,7 @@ namespace Control_Ventas_Tecnologi
 
         }
 
+        // Este método se encarga de mostrar el panel de confirmación para eliminar un producto, almacenando el código del producto seleccionado para eliminarlo posteriormente si el usuario confirma la acción
         private void buttonEliminarColum_Click(object sender, EventArgs e)
         {
             if (dataGridViewEdicion.CurrentRow == null)
@@ -387,6 +410,8 @@ namespace Control_Ventas_Tecnologi
             panelConfirmate.Visible = false;
         }
 
+
+        // Este método se encarga de eliminar el producto seleccionado, actualizar el grid y mostrar un mensaje de confirmación
         private void buttonyes_Click(object sender, EventArgs e)
         {
 
@@ -402,8 +427,15 @@ namespace Control_Ventas_Tecnologi
             tabControl1.SelectedTab = Gerente;
         }
 
+
+        // Este método se encarga de registrar un nuevo cliente, guardarlo en el JSON, mostrar un mensaje de confirmación y pasar los datos del cliente a la pestaña de compras
         private void buttonRegistrar_Click(object sender, EventArgs e)
         {
+            if (DetectarTextoVacio())
+            {
+                return;
+            }
+
             DatosCliente newCliente = new DatosCliente
             {
                 nit = textBoxNits.Text,
@@ -413,16 +445,22 @@ namespace Control_Ventas_Tecnologi
                 telefono = textBoxNoTelefono.Text,
             };
 
+            LimpiarEntradas();
 
-            DetectarTextoVacio();
             BaseDatosClienteas dbCliente = new BaseDatosClienteas();
             dbCliente.Guardar(newCliente);
 
             MessageBox.Show("Cliente registrado correctamente");
 
             lblnitCompra.Text = newCliente.nit;
-            lblnameCompra.Text = newCliente.nombre + " " + newCliente.apellido;
+            lblnombre.Text = newCliente.nombre + " " + newCliente.apellido;
+            lblnitaCajero.Text = newCliente.nit;
+            lblnombreaCajero.Text = newCliente.nombre + " " + newCliente.apellido;
+
+
+
             tabControl1.SelectedTab = Cajero;
+
 
         }
 
@@ -433,6 +471,192 @@ namespace Control_Ventas_Tecnologi
             f2.ShowDialog();
             this.Show();
         }
+
+        private void buttonIrFactura_Click(object sender, EventArgs e)
+        {
+
+            tabControl1.SelectedTab = Compras;
+            LimpiarEntradas();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            Form2 f2 = new Form2();
+            this.Hide();
+            f2.ShowDialog();
+            this.Show();
+        }
+
+        // Este método se encarga de configurar el ComboBox para que muestre los códigos de los productos con autocompletado, facilitando la selección del producto al momento de realizar una venta
+        public void ConfigurarVenta()
+        {
+            _listaProductos = productosBase.LeerProductos();
+
+            // 1. Configuramos el comportamiento ANTES de los datos
+            comboBoxCodigo.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            comboBoxCodigo.AutoCompleteSource = AutoCompleteSource.ListItems;
+            comboBoxCodigo.DropDownStyle = ComboBoxStyle.DropDown; // IMPORTANTE: No usar DropDownList
+
+            // 2. Entregamos los datos
+            comboBoxCodigo.DataSource = null;
+            comboBoxCodigo.DataSource = _listaProductos;
+
+            // 3. Establecemos qué propiedad de tu JSON debe mostrar
+            comboBoxCodigo.DisplayMember = "Codigo";
+            comboBoxCodigo.ValueMember = "Codigo";
+            comboBoxCodigo.SelectedIndex = -1;
+            comboBoxCodigo.Text = string.Empty;
+
+        }
+
+
+        // Este método se encarga de actualizar los labels de información del producto seleccionado en el ComboBox, así como de habilitar o deshabilitar el control de cantidad y el botón de añadir al carrito según la disponibilidad del producto
+        private void comboBoxCodigo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (comboBoxCodigo.SelectedIndex == -1 || comboBoxCodigo.SelectedItem == null)
+            {
+                lblNombreProd.Text = "-";
+                lblPrecio.Text = "0.00";
+                lblDisponible.Text = "Seleccione producto";
+                numCantidad.Enabled = false;
+                return;
+            }
+
+            Productos p = (Productos)comboBoxCodigo.SelectedItem;
+            lblNombreProd.Text = p.Nombre;
+            lblPrecio.Text = p.PrecioVenta;
+
+            // Llamamos a la lógica de bloqueo/activación
+            ActualizarEstadoControles(p);
+        }
+
+
+        // Este método se encarga de añadir el producto seleccionado al carrito de compras, calculando el subtotal, actualizando el total a pagar, restando la cantidad seleccionada del stock en la RAM para mostrarlo en el label y limpiando los controles para la siguiente selección
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            if (comboBoxCodigo.SelectedItem is Productos p)
+            {
+                int cantElegida = (int)numCantidad.Value;
+                if (cantElegida <= 0) return;
+
+                decimal precio = decimal.Parse(p.PrecioVenta);
+                decimal subtotal = precio * cantElegida;
+
+                // ESTA LÍNEA ES LA QUE DIBUJA LA FILA
+                // El orden debe ser: Codigo, Nombre, Marca, Cantidad, Precio, Subtotal
+                dataGridViewCarrito.Rows.Add(p.Codigo, p.Nombre, p.Marca, cantElegida, precio, subtotal);
+
+                // Actualizar el total que el cliente ve
+                totalFactura += subtotal;
+                lblTotalPagar.Text = "Q " + totalFactura.ToString("N2");
+
+                // Restar stock en la RAM para el label
+                p.Existencia -= cantElegida;
+                ActualizarEstadoControles(p);
+
+                // Limpiar para el siguiente
+                comboBoxCodigo.SelectedIndex = -1;
+                numCantidad.Value = 1;
+                comboBoxCodigo.Focus();
+            }
+        }
+
+        private void buttonGenerarFactura_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Factura nuevaVenta = new Factura
+                {
+                    Nit2 = lblnitCompra.Text,
+                    NombreCliente = lblnombre.Text,
+                    FechaVenta = dateTimePickerFecha.Value, // Fecha seleccionada
+
+                    TotalPagado = totalFactura
+                };
+
+                foreach (DataGridViewRow fila in dataGridViewCarrito.Rows)
+                {
+                    if (fila.IsNewRow) continue;
+
+                    string cod = fila.Cells["Codigo"].Value.ToString();
+                    int cant = int.Parse(fila.Cells["Cantidad"].Value.ToString());
+
+                    // 1. Llenar el detalle de la factura
+                    nuevaVenta.Items.Add(new DetalleVenta
+                    {
+                        Codigo = cod,
+                        Nombre = fila.Cells["Nombre"].Value.ToString(),
+                        Cantidad = cant,
+                        PrecioUnitario = decimal.Parse(fila.Cells["Precio"].Value.ToString()),
+                        Subtotal = decimal.Parse(fila.Cells["Subtotal"].Value.ToString())
+                    });
+
+                    // 2. Restar del stock global
+                    var prodStock = _listaProductos.FirstOrDefault(x => x.Codigo == cod);
+                    if (prodStock != null) prodStock.Existencia -= cant;
+                }
+
+                // 3. Guardar en los dos JSONs
+                BaseDatosFactura dbFact = new BaseDatosFactura();
+                dbFact.GuardarFactura(nuevaVenta);
+                lblNoFactura.Text = nuevaVenta.NoFactura;
+
+                // USAMOS EL MÉTODO QUE YA TIENES EN TU CLASE
+                productosBase.GuardarTodo(_listaProductos);
+
+                MessageBox.Show("Venta realizada con éxito e inventario actualizado");
+
+                // 4. LIMPIEZA VITAL (Para que no se dupliquen datos en la siguiente venta)
+                
+                totalFactura = 0;                 // Reinicia el contador de dinero
+                lblTotalPagar.Text = "Q 0.00";    // Reinicia el texto del total
+                ActualizarDatosProducto();        //
+            }
+            catch (Exception ex) { MessageBox.Show("Error: " + ex.Message); }
+        }
+
+        private void buttonFIn_Click(object sender, EventArgs e)
+        {
+            tabControl1.SelectedTab = Cajero;
+        }
+
+
+
+        // Este método se encarga de actualizar el estado de los controles relacionados con la selección del producto, como el label de disponibilidad, el control de cantidad y el botón de añadir al carrito, dependiendo de la existencia del producto seleccionado
+        private void ActualizarEstadoControles(Productos p)
+        {
+            if (p == null) return;
+
+            if (p.Existencia <= 0)
+            {
+                lblDisponible.Text = "PRODUCTO AGOTADO";
+                lblDisponible.ForeColor = Color.Red;
+                numCantidad.Maximum = 0;
+                numCantidad.Value = 0;
+                numCantidad.Enabled = false;
+                button1.Enabled = false; // Botón añadir al carrito
+            }
+            else
+            {
+                lblDisponible.Text = "Stock: " + p.Existencia;
+                lblDisponible.ForeColor = Color.DarkGreen;
+                numCantidad.Maximum = p.Existencia;
+                numCantidad.Enabled = true;
+                button1.Enabled = true;
+            }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            tabControl1.SelectedTab = ReportesFav;
+        }
+
+        private void buttondatosVentas_Click(object sender, EventArgs e)
+        {
+            tabControl1.SelectedTab = DatosVenta;
+        }
     }
+
+
 }
 

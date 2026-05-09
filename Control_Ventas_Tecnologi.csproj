@@ -79,6 +79,7 @@
   <ItemGroup>
     <Compile Include="BaseDatosClienteas.cs" />
     <Compile Include="baseDatosEmpleados.cs" />
+    <Compile Include="BaseDatosFactura.cs" />
     <Compile Include="DatosCliente.cs" />
     <Compile Include="Empleados.cs" />
     <Compile Include="Factura.cs" />

@@ -45,6 +45,7 @@ namespace Control_Ventas_Tecnologi
                 this.AccionARealizar = "VENDER";
 
                 this.DialogResult = DialogResult.OK;
+                comboBoxnits.Text = string.Empty;
             }
             else
             {
@@ -54,6 +55,7 @@ namespace Control_Ventas_Tecnologi
                 this.AccionARealizar = "REGISTRAR";
 
                 this.DialogResult = DialogResult.OK;
+                comboBoxnits.Text = string.Empty;
             }
         }
 

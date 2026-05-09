@@ -60,9 +60,9 @@ namespace Control_Ventas_Tecnologi
                     File.WriteAllText(_datosClientesGit, nuevoJson);
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                
+                MessageBox.Show(ex.Message);
             }
         }
 
