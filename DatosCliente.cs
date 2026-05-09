@@ -8,7 +8,7 @@ namespace Control_Ventas_Tecnologi
 {
     internal class DatosCliente
     {
-        public string noFactura { get; set; } = string.Empty;
+        
         public string nit { get; set; } = string.Empty;
         public string nombre { get; set; } = string.Empty;
         public string apellido { get; set; } = string.Empty;

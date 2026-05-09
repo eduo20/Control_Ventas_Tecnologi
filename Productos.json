@@ -5,7 +5,7 @@
     "Marca": "Apple",
     "PrecioCompra": "940.00",
     "PrecioVenta": "1199.00",
-    "Existencia": "5"
+    "Existencia": 2
   },
   {
     "Codigo": "LAP-002",
@@ -13,7 +13,7 @@
     "Marca": "HP",
     "PrecioCompra": "600.00",
     "PrecioVenta": "749.99",
-    "Existencia": "8"
+    "Existencia": -6
   },
   {
     "Codigo": "LAP-003",
@@ -21,7 +21,7 @@
     "Marca": "Lenovo",
     "PrecioCompra": "1100.00",
     "PrecioVenta": "1350.00",
-    "Existencia": "3"
+    "Existencia": 3
   },
   {
     "Codigo": "CEL-001",
@@ -29,7 +29,7 @@
     "Marca": "Samsung",
     "PrecioCompra": "850.00",
     "PrecioVenta": "1050.00",
-    "Existencia": "12"
+    "Existencia": 0
   },
   {
     "Codigo": "CEL-002",
@@ -37,7 +37,7 @@
     "Marca": "Apple",
     "PrecioCompra": "900.00",
     "PrecioVenta": "1099.00",
-    "Existencia": "10"
+    "Existencia": 6
   },
   {
     "Codigo": "CEL-003",
@@ -45,7 +45,7 @@
     "Marca": "Xiaomi",
     "PrecioCompra": "220.00",
     "PrecioVenta": "315.00",
-    "Existencia": "20"
+    "Existencia": 20
   },
   {
     "Codigo": "AUD-001",
@@ -53,7 +53,7 @@
     "Marca": "Sony",
     "PrecioCompra": "250.00",
     "PrecioVenta": "349.00",
-    "Existencia": "7"
+    "Existencia": 7
   },
   {
     "Codigo": "AUD-002",
@@ -61,7 +61,7 @@
     "Marca": "Apple",
     "PrecioCompra": "180.00",
     "PrecioVenta": "249.00",
-    "Existencia": "15"
+    "Existencia": 15
   },
   {
     "Codigo": "AUD-003",
@@ -69,7 +69,7 @@
     "Marca": "Bose",
     "PrecioCompra": "280.00",
     "PrecioVenta": "379.00",
-    "Existencia": "4"
+    "Existencia": 4
   },
   {
     "Codigo": "ACC-001",
@@ -77,7 +77,7 @@
     "Marca": "Ugreen",
     "PrecioCompra": "15.00",
     "PrecioVenta": "35.00",
-    "Existencia": "25"
+    "Existencia": 25
   },
   {
     "Codigo": "ACC-002",
@@ -85,7 +85,7 @@
     "Marca": "Anker",
     "PrecioCompra": "20.00",
     "PrecioVenta": "45.00",
-    "Existencia": "30"
+    "Existencia": 24
   },
   {
     "Codigo": "ACC-003",
@@ -93,7 +93,7 @@
     "Marca": "Corsair",
     "PrecioCompra": "12.00",
     "PrecioVenta": "25.00",
-    "Existencia": "40"
+    "Existencia": 40
   },
   {
     "Codigo": "COM-001",
@@ -101,7 +101,7 @@
     "Marca": "NVIDIA",
     "PrecioCompra": "450.00",
     "PrecioVenta": "700.00",
-    "Existencia": "6"
+    "Existencia": 2
   },
   {
     "Codigo": "COM-002",
@@ -109,7 +109,7 @@
     "Marca": "AMD",
     "PrecioCompra": "300.00",
     "PrecioVenta": "399.00",
-    "Existencia": "10"
+    "Existencia": 10
   },
   {
     "Codigo": "COM-003",
@@ -117,7 +117,7 @@
     "Marca": "Kingston",
     "PrecioCompra": "85.00",
     "PrecioVenta": "130.00",
-    "Existencia": "18"
+    "Existencia": 14
   },
   {
     "Codigo": "CD34",
@@ -125,7 +125,7 @@
     "Marca": "Apple",
     "PrecioCompra": "2000",
     "PrecioVenta": "2500",
-    "Existencia": "3"
+    "Existencia": 7
   },
   {
     "Codigo": "JH2354",
@@ -133,7 +133,7 @@
     "Marca": "Redmi",
     "PrecioCompra": "1900",
     "PrecioVenta": "2300",
-    "Existencia": "5"
+    "Existencia": 3
   },
   {
     "Codigo": "HlQc32",
@@ -141,14 +141,14 @@
     "Marca": "Redmi",
     "PrecioCompra": "1200",
     "PrecioVenta": "1500",
-    "Existencia": "6"
+    "Existencia": 0
   },
   {
-    "Codigo": "AXZUS",
-    "Nombre": "Azus 1",
-    "Marca": "Azus",
-    "PrecioCompra": "4000",
-    "PrecioVenta": "4500",
-    "Existencia": "9"
+    "Codigo": "676767",
+    "Nombre": "Mouse Basilik",
+    "Marca": "Razer",
+    "PrecioCompra": "1000",
+    "PrecioVenta": "1200",
+    "Existencia": 6
   }
 ]

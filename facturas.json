@@ -1,0 +1,176 @@
+[
+  {
+    "NoFactura": "FAC-00001",
+    "Nit2": "202024",
+    "NombreCliente": "Ruben P\u00E9rez",
+    "FechaVenta": "2026-02-03T12:34:24",
+    "Entregado": false,
+    "TotalPagado": 3448.00,
+    "Items": [
+      {
+        "Codigo": "LAP-001",
+        "Nombre": "MacBook Air M2",
+        "Marca": "",
+        "Cantidad": 2,
+        "PrecioUnitario": 1199.00,
+        "Subtotal": 2398.00
+      },
+      {
+        "Codigo": "CEL-001",
+        "Nombre": "Galaxy S24 Ultra",
+        "Marca": "",
+        "Cantidad": 1,
+        "PrecioUnitario": 1050.00,
+        "Subtotal": 1050.00
+      }
+    ]
+  },
+  {
+    "NoFactura": "FAC-00002",
+    "Nit2": "202024",
+    "NombreCliente": "Ruben P\u00E9rez",
+    "FechaVenta": "2026-05-09T13:22:45.2907424-06:00",
+    "Entregado": false,
+    "TotalPagado": 6200,
+    "Items": [
+      {
+        "Codigo": "676767",
+        "Nombre": "Mouse Basilik",
+        "Marca": "",
+        "Cantidad": 1,
+        "PrecioUnitario": 1200,
+        "Subtotal": 1200
+      },
+      {
+        "Codigo": "CD34",
+        "Nombre": "Iphone X",
+        "Marca": "",
+        "Cantidad": 2,
+        "PrecioUnitario": 2500,
+        "Subtotal": 5000
+      }
+    ]
+  },
+  {
+    "NoFactura": "FAC-00003",
+    "Nit2": "202508035",
+    "NombreCliente": "Jorge El curioso",
+    "FechaVenta": "2026-05-01T13:27:42",
+    "Entregado": false,
+    "TotalPagado": 5598.98,
+    "Items": [
+      {
+        "Codigo": "CEL-002",
+        "Nombre": "iPhone 15 Pro",
+        "Marca": "",
+        "Cantidad": 1,
+        "PrecioUnitario": 1099.00,
+        "Subtotal": 1099.00
+      },
+      {
+        "Codigo": "HlQc32",
+        "Nombre": "Redmi buds 4",
+        "Marca": "",
+        "Cantidad": 2,
+        "PrecioUnitario": 1500,
+        "Subtotal": 3000
+      },
+      {
+        "Codigo": "LAP-002",
+        "Nombre": "Laptop Victus 15",
+        "Marca": "",
+        "Cantidad": 2,
+        "PrecioUnitario": 749.99,
+        "Subtotal": 1499.98
+      }
+    ]
+  },
+  {
+    "NoFactura": "FAC-00004",
+    "Nit2": "202508035",
+    "NombreCliente": "Jorge El curioso",
+    "FechaVenta": "2026-05-09T13:34:08.6839449-06:00",
+    "Entregado": false,
+    "TotalPagado": 1535.00,
+    "Items": [
+      {
+        "Codigo": "COM-001",
+        "Nombre": "Tarjeta de Video RTX 4070",
+        "Marca": "",
+        "Cantidad": 2,
+        "PrecioUnitario": 700.00,
+        "Subtotal": 1400.00
+      },
+      {
+        "Codigo": "ACC-002",
+        "Nombre": "Cargador Carga R\u00E1pida 65W",
+        "Marca": "",
+        "Cantidad": 3,
+        "PrecioUnitario": 45.00,
+        "Subtotal": 135.00
+      }
+    ]
+  },
+  {
+    "NoFactura": "FAC-00005",
+    "Nit2": "202508035",
+    "NombreCliente": "Jorge El curioso",
+    "FechaVenta": "2026-05-09T13:34:08.6839449-06:00",
+    "Entregado": true,
+    "TotalPagado": 1499.98,
+    "Items": [
+      {
+        "Codigo": "LAP-002",
+        "Nombre": "Laptop Victus 15",
+        "Marca": "",
+        "Cantidad": 2,
+        "PrecioUnitario": 749.99,
+        "Subtotal": 1499.98
+      }
+    ]
+  },
+  {
+    "NoFactura": "FAC-00006",
+    "Nit2": "",
+    "NombreCliente": "",
+    "FechaVenta": "2026-05-09T13:56:14.0400066-06:00",
+    "Entregado": true,
+    "TotalPagado": 1499.98,
+    "Items": [
+      {
+        "Codigo": "LAP-002",
+        "Nombre": "Laptop Victus 15",
+        "Marca": "",
+        "Cantidad": 2,
+        "PrecioUnitario": 749.99,
+        "Subtotal": 1499.98
+      }
+    ]
+  },
+  {
+    "NoFactura": "FAC-00007",
+    "Nit2": "",
+    "NombreCliente": "",
+    "FechaVenta": "2026-05-09T14:15:50.7472089-06:00",
+    "Entregado": false,
+    "TotalPagado": 1359.00,
+    "Items": [
+      {
+        "Codigo": "COM-003",
+        "Nombre": "Memoria RAM 32GB DDR5",
+        "Marca": "",
+        "Cantidad": 2,
+        "PrecioUnitario": 130.00,
+        "Subtotal": 260.00
+      },
+      {
+        "Codigo": "CEL-002",
+        "Nombre": "iPhone 15 Pro",
+        "Marca": "",
+        "Cantidad": 1,
+        "PrecioUnitario": 1099.00,
+        "Subtotal": 1099.00
+      }
+    ]
+  }
+]
