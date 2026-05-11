@@ -233,7 +233,7 @@
             this.panelUser1.Controls.Add(this.label3);
             this.panelUser1.Controls.Add(this.buttonAvanzar1);
             this.panelUser1.Controls.Add(this.buttonRegresar1);
-            this.panelUser1.Location = new System.Drawing.Point(319, 242);
+            this.panelUser1.Location = new System.Drawing.Point(316, 242);
             this.panelUser1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panelUser1.Name = "panelUser1";
             this.panelUser1.Size = new System.Drawing.Size(598, 182);
@@ -335,6 +335,7 @@
             // 
             // dateTimePicker1
             // 
+            this.dateTimePicker1.Enabled = false;
             this.dateTimePicker1.Location = new System.Drawing.Point(31, 21);
             this.dateTimePicker1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dateTimePicker1.Name = "dateTimePicker1";
@@ -420,11 +421,11 @@
             this.Cajero.Controls.Add(this.label6);
             this.Cajero.Controls.Add(this.lblnombre);
             this.Cajero.Controls.Add(this.lblnitCompra);
-            this.Cajero.Location = new System.Drawing.Point(4, 36);
+            this.Cajero.Location = new System.Drawing.Point(4, 5);
             this.Cajero.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Cajero.Name = "Cajero";
             this.Cajero.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.Cajero.Size = new System.Drawing.Size(1287, 726);
+            this.Cajero.Size = new System.Drawing.Size(1287, 757);
             this.Cajero.TabIndex = 0;
             this.Cajero.Text = "Cajero";
             this.Cajero.UseVisualStyleBackColor = true;
@@ -613,11 +614,11 @@
             this.Gerente.Controls.Add(this.buttonRegresar3);
             this.Gerente.Controls.Add(this.dateTimePicker3);
             this.Gerente.Controls.Add(this.label5);
-            this.Gerente.Location = new System.Drawing.Point(4, 36);
+            this.Gerente.Location = new System.Drawing.Point(4, 5);
             this.Gerente.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Gerente.Name = "Gerente";
             this.Gerente.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.Gerente.Size = new System.Drawing.Size(1287, 726);
+            this.Gerente.Size = new System.Drawing.Size(1287, 757);
             this.Gerente.TabIndex = 1;
             this.Gerente.UseVisualStyleBackColor = true;
             // 
@@ -772,10 +773,10 @@
             this.ListaProducto.Controls.Add(this.buttonMostrar3);
             this.ListaProducto.Controls.Add(this.buttonSalir3);
             this.ListaProducto.Controls.Add(this.dataGridViewProductos);
-            this.ListaProducto.Location = new System.Drawing.Point(4, 36);
+            this.ListaProducto.Location = new System.Drawing.Point(4, 5);
             this.ListaProducto.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.ListaProducto.Name = "ListaProducto";
-            this.ListaProducto.Size = new System.Drawing.Size(1287, 726);
+            this.ListaProducto.Size = new System.Drawing.Size(1287, 757);
             this.ListaProducto.TabIndex = 3;
             this.ListaProducto.Text = "Lista de productos";
             this.ListaProducto.UseVisualStyleBackColor = true;
@@ -842,10 +843,10 @@
             this.nuevosProdutos.Controls.Add(this.label11);
             this.nuevosProdutos.Controls.Add(this.label10);
             this.nuevosProdutos.Controls.Add(this.dateTimePicker4);
-            this.nuevosProdutos.Location = new System.Drawing.Point(4, 36);
+            this.nuevosProdutos.Location = new System.Drawing.Point(4, 5);
             this.nuevosProdutos.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.nuevosProdutos.Name = "nuevosProdutos";
-            this.nuevosProdutos.Size = new System.Drawing.Size(1287, 726);
+            this.nuevosProdutos.Size = new System.Drawing.Size(1287, 757);
             this.nuevosProdutos.TabIndex = 4;
             this.nuevosProdutos.Text = "Agregar nuevos productos";
             this.nuevosProdutos.UseVisualStyleBackColor = true;
@@ -1012,10 +1013,10 @@
             this.Modificar.Controls.Add(this.buttonCargar);
             this.Modificar.Controls.Add(this.buttonEditar);
             this.Modificar.Controls.Add(this.dataGridViewEdicion);
-            this.Modificar.Location = new System.Drawing.Point(4, 36);
+            this.Modificar.Location = new System.Drawing.Point(4, 5);
             this.Modificar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Modificar.Name = "Modificar";
-            this.Modificar.Size = new System.Drawing.Size(1287, 726);
+            this.Modificar.Size = new System.Drawing.Size(1287, 757);
             this.Modificar.TabIndex = 5;
             this.Modificar.Text = "Modificar datos";
             this.Modificar.UseVisualStyleBackColor = true;
@@ -1178,10 +1179,10 @@
             this.Clientes.Controls.Add(this.textBoxApellido);
             this.Clientes.Controls.Add(this.label9);
             this.Clientes.Controls.Add(this.textBoxnameNew);
-            this.Clientes.Location = new System.Drawing.Point(4, 36);
+            this.Clientes.Location = new System.Drawing.Point(4, 5);
             this.Clientes.Margin = new System.Windows.Forms.Padding(4);
             this.Clientes.Name = "Clientes";
-            this.Clientes.Size = new System.Drawing.Size(1287, 726);
+            this.Clientes.Size = new System.Drawing.Size(1287, 757);
             this.Clientes.TabIndex = 6;
             this.Clientes.Text = "Nuevo cliente";
             this.Clientes.UseVisualStyleBackColor = true;
@@ -1311,10 +1312,10 @@
             this.Compras.Controls.Add(this.dataGridViewCarrito);
             this.Compras.Controls.Add(this.lblnombreaCajero);
             this.Compras.Controls.Add(this.lblnitaCajero);
-            this.Compras.Location = new System.Drawing.Point(4, 36);
+            this.Compras.Location = new System.Drawing.Point(4, 5);
             this.Compras.Margin = new System.Windows.Forms.Padding(4);
             this.Compras.Name = "Compras";
-            this.Compras.Size = new System.Drawing.Size(1287, 726);
+            this.Compras.Size = new System.Drawing.Size(1287, 757);
             this.Compras.TabIndex = 7;
             this.Compras.Text = "Facturas";
             this.Compras.UseVisualStyleBackColor = true;
@@ -1428,10 +1429,10 @@
             // 
             this.ReportesFav.Controls.Add(this.button4);
             this.ReportesFav.Controls.Add(this.dgvMasVendidos);
-            this.ReportesFav.Location = new System.Drawing.Point(4, 36);
+            this.ReportesFav.Location = new System.Drawing.Point(4, 5);
             this.ReportesFav.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.ReportesFav.Name = "ReportesFav";
-            this.ReportesFav.Size = new System.Drawing.Size(1287, 726);
+            this.ReportesFav.Size = new System.Drawing.Size(1287, 757);
             this.ReportesFav.TabIndex = 8;
             this.ReportesFav.Text = "ReportesFav";
             this.ReportesFav.UseVisualStyleBackColor = true;
@@ -1463,10 +1464,10 @@
             this.DatosVenta.Controls.Add(this.button5);
             this.DatosVenta.Controls.Add(this.lblTotalDineroVentas);
             this.DatosVenta.Controls.Add(this.dgvTotalVentas);
-            this.DatosVenta.Location = new System.Drawing.Point(4, 36);
+            this.DatosVenta.Location = new System.Drawing.Point(4, 5);
             this.DatosVenta.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.DatosVenta.Name = "DatosVenta";
-            this.DatosVenta.Size = new System.Drawing.Size(1287, 726);
+            this.DatosVenta.Size = new System.Drawing.Size(1287, 757);
             this.DatosVenta.TabIndex = 9;
             this.DatosVenta.Text = "DatosVenta";
             this.DatosVenta.UseVisualStyleBackColor = true;
@@ -1505,10 +1506,10 @@
             // 
             this.DatosGanancia.Controls.Add(this.button6);
             this.DatosGanancia.Controls.Add(this.lblResultadoGanancia);
-            this.DatosGanancia.Location = new System.Drawing.Point(4, 36);
+            this.DatosGanancia.Location = new System.Drawing.Point(4, 5);
             this.DatosGanancia.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.DatosGanancia.Name = "DatosGanancia";
-            this.DatosGanancia.Size = new System.Drawing.Size(1287, 726);
+            this.DatosGanancia.Size = new System.Drawing.Size(1287, 757);
             this.DatosGanancia.TabIndex = 10;
             this.DatosGanancia.Text = "DatosGanancia";
             this.DatosGanancia.UseVisualStyleBackColor = true;
@@ -1537,10 +1538,10 @@
             // 
             this.DatosPendiente.Controls.Add(this.button7);
             this.DatosPendiente.Controls.Add(this.dataGridViewPendientes);
-            this.DatosPendiente.Location = new System.Drawing.Point(4, 36);
+            this.DatosPendiente.Location = new System.Drawing.Point(4, 5);
             this.DatosPendiente.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.DatosPendiente.Name = "DatosPendiente";
-            this.DatosPendiente.Size = new System.Drawing.Size(1287, 726);
+            this.DatosPendiente.Size = new System.Drawing.Size(1287, 757);
             this.DatosPendiente.TabIndex = 11;
             this.DatosPendiente.Text = "DatosPendiente";
             this.DatosPendiente.UseVisualStyleBackColor = true;

@@ -252,6 +252,7 @@ namespace Control_Ventas_Tecnologi
                     MessageBox.Show("Bienvenido Gerente, accediendo a panel de control");
                     tabControl1.SelectedTab = Gerente; // Cambia a la pestaña "Gerente" si la contraseña es correcta
                     textBoxContra.Clear();
+                    panelContra1.Visible = false;
                 }
 
 
@@ -261,6 +262,8 @@ namespace Control_Ventas_Tecnologi
                     using (Form2 f2 = new Form2()) // Usamos 'using' para asegurar limpieza
                     {
                         MessageBox.Show("Bienvenido Cajero, por favor seleccione un cliente para continuar");
+                        panelContra1.Visible = false;
+
                         this.Hide();
                         if (f2.ShowDialog() == DialogResult.OK)
                         {
