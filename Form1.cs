@@ -249,7 +249,7 @@ namespace Control_Ventas_Tecnologi
             {
                 if (_empleadoLogueado.rol == "Gerente")
                 {
-
+                    MessageBox.Show("Bienvenido Gerente, accediendo a panel de control");
                     tabControl1.SelectedTab = Gerente; // Cambia a la pestaña "Gerente" si la contraseña es correcta
                     textBoxContra.Clear();
                 }
@@ -260,6 +260,7 @@ namespace Control_Ventas_Tecnologi
 
                     using (Form2 f2 = new Form2()) // Usamos 'using' para asegurar limpieza
                     {
+                        MessageBox.Show("Bienvenido Cajero, por favor seleccione un cliente para continuar");
                         this.Hide();
                         if (f2.ShowDialog() == DialogResult.OK)
                         {
@@ -793,6 +794,8 @@ namespace Control_Ventas_Tecnologi
             CargarGridVentasPorFecha(dtpInicio.Value, dtpFin.Value);
         }
 
+        //Este metodo se uso para cargar el grid de los productos mas vendidos, se llama cada vez que se genera una nueva factura para que el reporte esté actualizado, no tiene filtro de fecha porque es un ranking general desde que se empezó a usar el programa, pero se podría modificar para agregar un filtro de fecha si se quisiera
+
         private void CargarGridMasVendidos()
         {
             BaseDatosFactura dbFact = new BaseDatosFactura();
@@ -860,7 +863,7 @@ namespace Control_Ventas_Tecnologi
             {
                 foreach (var item in f.Items)
                 {
-                    var pInv = _listaProductos.FirstOrDefault(p => p.Codigo == item.Codigo);
+                    var pInv = _listaProductos.FirstOrDefault(p => p.Codigo == item.Codigo); //FirstOrDefault devuelve el primer elemento que cumple la condición o null si no encuentra ninguno, por eso es importante verificar que no sea null antes de usarlo para evitar errores
                     if (pInv != null)
                     {
                         // Convertimos el precio de compra asegurando que el formato decimal sea correcto
@@ -888,7 +891,7 @@ namespace Control_Ventas_Tecnologi
                 .Select(f => new {
                     Factura = f.NoFactura,
                     Cliente = f.NombreCliente,
-                    Fecha = f.FechaVenta.ToShortDateString(),
+                    Fecha = f.FechaVenta.ToShortDateString(), //ToShortDateString() muestra solo la fecha sin la hora
                     Monto = "Q " + f.TotalPagado.ToString("N2"),
                     Estado = f.Entregado ? "CONFIRMADA" : "PENDIENTE"
                 }).ToList();
